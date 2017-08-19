@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:remove="all">Order Confirmation</title>
+</head>
+<body>
+<div>
+     
+        <h2 th:text="${title}">title</h2>
+        <p th:text="${description}"></p>
+         <p>
+            <a th:href="@{http://localhost:8080/activate(email=${email})}">Verification Link</a>
+        </p>      
+         <!-- <button type="submit" name="your_name" value="your_value" class="btn-link">Go</button> -->
+    
+   <!-- <form method="POST" th:action="@{http://localhost:8080/mobile/user/activate}">
+    <input type="hidden" name="email" th:value="${email}"/>  
+    <button type="submit" name="email" th:value="${email}" class="link-button">This is a link that sends a POST request</button>
+   </form> -->
+</div>
+ 
+</body>
+</html>
