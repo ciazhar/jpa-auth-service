@@ -49,6 +49,11 @@ GET	| /activate?email=	| Activate Account	|  v  |  v
 - JWT Filter
 - SSO github dan Facebook
 
+### JWT Filter
+Kunci dari jwt filter adalah memfilter request dari user terhadap API tertentu menggunakan hak akses. Hak akses dapat dilihat dari mendekrip JWT token yang dikirim user saat mengakses API. Di Spring Boot sendiri API dapat di filter menggunakan anotasi @PreAuthorize yang diletakkan di atas methode API.
+ 
+## Sample JSON
+Sample JSON file untuk testing dapat dilihat di direktori `/src/main/resource/json`
 
 ## Menjalankan program
 - Buat database mysql dengan username `belajar_oauth`. Kemudian Berikan hak akses menggunakan `grant all on pelatihan.* to pelatihanuser@localhost identified by 'pelatihanpasswd'`
@@ -73,6 +78,3 @@ curl -X POST -vu nama-service:123456 http://localhost:8080/oauth/token -H "Accep
 ```
 client-id disesuaikan nama client id yang anda cantumkan pada `src/main/java/com/ciazhar/authserver/config/security/OAuth2Config`. code disesuaikan dengan code yang anda dapat tadi.
 - Kemudian anda akan mendapatkan `acces_token`. Gunakan access token tersebut untuk setiap request ke backend anda. Apabila anda ingin melihat enkripsi dari access token tersebut anda dapat mengunjungi website `jwt.io`.
-
-### JWT Filter
-Kunci dari jwt filter adalah memfilter request dari user terhadap API tertentu menggunakan hak akses. Hak akses dapat dilihat dari mendekrip JWT token yang dikirim user saat mengakses API. Di Spring Boot sendiri API dapat di filter menggunakan anotasi @PreAuthorize yang diletakkan di atas methode API. 
