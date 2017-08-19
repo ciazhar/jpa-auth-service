@@ -44,7 +44,7 @@ public class RoleController {
      * @return
      */
     @PreAuthorize("hasAuthority('SUPER_USER')")
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "/single", method = RequestMethod.GET)
     public ResponseData<Role> findSingle(@RequestParam String id) throws Exception{
         ResponseData<Role> responseData =  new ResponseData<>();
         responseData.setData(roleRepository.findOne(id));

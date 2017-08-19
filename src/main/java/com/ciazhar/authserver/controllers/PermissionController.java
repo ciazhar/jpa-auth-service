@@ -44,7 +44,7 @@ public class PermissionController {
      * @return
      */
     @PreAuthorize("hasAuthority('SUPER_USER')")
-    @RequestMapping(method = RequestMethod.POST, value = "/single")
+    @RequestMapping(method = RequestMethod.GET, value = "/single")
     public ResponseData<Permission> findSingle(@RequestParam String id){
         ResponseData<Permission> responseData =  new ResponseData<>();
         responseData.setData(permissionRepository.findOne(id));
