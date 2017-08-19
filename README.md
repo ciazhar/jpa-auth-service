@@ -1,5 +1,5 @@
-# Authorization Server
-Authorization Server adalah backend server yang digunakan untuk otorisasi.
+# Clorus Authorization Server
+Authorization Server adalah backend server yang digunakan untuk otorisasi, databse costumer, .
 
 ## Stack 
 - Spring Boot
@@ -16,12 +16,36 @@ Untuk dapat mengeksekusi program ini diderlukan beberapa tools, diantaranya adal
 
 # Fitur
 - User, Role, Permission Pattern.
-- API. Url API bisa dilihat di controller bagian `Request Mapping` saya capek nulis daftar API nya soalnya banyak banget. Isinya
-    - Login/Register
-    - Verifikasi dengan Email
-    - CRUD + Searching Data
-    - Upload Foto
-- CSRF Protection
+- RESTfull API Service.
+
+Method	| Path	| Description	| Common User	| Super User
+------------- | ------------------------- | ------------- |:-------------:|:----------------:|
+GET	| /api/user	| Get user session data	| v | v	
+POST	| /api/user/register	| Register	| v | v
+GET	| /api/user/single?id=	| Find single user by id	|   | 	v
+GET	| /api/user/all| Get all user	|  | v
+POST	| /api/user/update	| Update profile	| v | v
+POST	| /api/user/change-username	| Change username	| v | v
+POST	| /api/user/change-phone	| Change phone	|  v | v
+POST	| /api/user/change-username	| Change username	| v | v
+POST	| /api/user/change-birthdate	| Change birthdate	| v | v
+POST	| /api/user/change-password	| Change password	| v | v
+POST	| /api/user/change-email	| Change email	| v | v
+POST	| /api/user/change-role	| Change role	|   | v
+POST	| /api/user/upload/avatar	| Change avatar	| v | v
+POST	| /api/user/device/android?id=&photo=	| Change android device id	| v | v
+POST	| /api/user/delete	| Delete user	|   | v
+POST	| /api/role/create	| Create role	|   | v
+GET	| /api/role/single?id= | Find single role by id	|   | v
+GET	| /api/role/all	| Find all role	|   | v
+POST	| /api/role/delete	| Delete role	|   | v
+POST	| /api/permission/create	| Create permission	|   | v
+GET	| /api/permission/single?id= | Find single permission by id	|   | v
+GET	| /api/permission/all	| Find all permission|   | v
+POST	| /api/permission/delete	| Delete permission	|   | v
+GET	| /activate?email=	| Activate Account	|  v  |  v 
+
+- CSRF Protection for Website
 - JWT Filter
 - SSO github dan Facebook
 
@@ -40,7 +64,6 @@ Selanjutnya proses dibawah ini akan berjalan di system, tetapi apabila ingin mel
 - Gunakan url berikut 
 ```
 http://localhost:8080/oauth/authorize?client_id=nama-service&response_type=code&redirect_uri=http://example.com
-
 ```
 client-id disesuaikan nama client id yang anda cantumkan pada `src/main/java/com/ciazhar/authserver/config/security/OAuth2Config`.
 - Masukkan username admin dan password 123. Daftar user dapat dilihat di data dummy sql tadi. 
