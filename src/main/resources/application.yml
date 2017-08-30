@@ -40,9 +40,9 @@ spring:
       INDENT_OUTPUT: true
 
   datasource:
-    url: jdbc:mysql://localhost:3306/belajar_oauth
-    username: belajar
-    password: belajar
+    url: jdbc:mysql://localhost:3306/auth
+    username: user
+    password: pass
 
 
   jpa:
