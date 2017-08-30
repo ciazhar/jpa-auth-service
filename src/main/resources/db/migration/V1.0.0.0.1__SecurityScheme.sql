@@ -1,11 +1,11 @@
 CREATE TABLE IF NOT EXISTS role(
-  id_role INT(6),
+  id_role VARCHAR(50),
   nama_role VARCHAR(30) UNIQUE NOT NULL ,
   label_role VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS user(
-  id_user INT(6),
+  id_user VARCHAR(50),
   email VARCHAR(30) UNIQUE NOT NULL ,
   password VARCHAR(100) NOT NULL ,
   enabled BOOLEAN DEFAULT 0,
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS user(
 );
 
 CREATE TABLE IF NOT EXISTS permission(
-  id_permission INT(6),
+  id_permission VARCHAR(50),
   nama_permission VARCHAR(30) NOT NULL ,
   label_permission VARCHAR(30) NOT NULL,
   id_role INT(6)
