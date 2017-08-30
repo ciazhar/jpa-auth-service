@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS user(
   phone_number VARCHAR(12),
   avatar VARCHAR(255),
   date_created DATE,
-  android_id VARCHAR(15),
+  android_device_id VARCHAR(15),
   id_role int(6) DEFAULT 2
 );
 
