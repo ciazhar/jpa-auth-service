@@ -56,8 +56,7 @@ Kunci dari jwt filter adalah memfilter request dari user terhadap API tertentu m
 Sample JSON file untuk testing dapat dilihat di direktori `/src/main/resource/json`
 
 ## Menjalankan program
-- Buat database mysql dengan username `belajar_oauth`. Kemudian Berikan hak akses menggunakan `grant all on pelatihan.* to pelatihanuser@localhost identified by 'pelatihanpasswd'`
-- Copy data dummy yang ada pada `src/main/resource/db/migration` ke database
+- Buat database mysql dengan username `auth`. Kemudian Berikan hak akses menggunakan `grant all on auth.* to user@localhost identified by 'pass'`
 - Daftarkan aplikasi anda ke `src/main/java/com/ciazhar/authserver/config/security/OAuth2Config` pada methode `public void configure(ClientDetailsServiceConfigurer clients)`. Anda akan diminta untuk mencantumkan client id, client secret, grant type, authorities dan scope.   
 - Gunakan perintah berikut untuk mengeksekusi program Authorization Server
 ```
