@@ -1,4 +1,4 @@
-# Clorus Authorization Server
+# Authorization Server
 Authorization Server adalah backend server yang digunakan untuk otorisasi, databse costumer, .
 
 ## Stack 
