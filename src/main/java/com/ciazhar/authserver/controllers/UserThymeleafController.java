@@ -1,6 +1,6 @@
 package com.ciazhar.authserver.controllers;
 
-import com.ciazhar.authserver.model.User;
+import com.ciazhar.authserver.model.jpa.User;
 import com.ciazhar.authserver.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

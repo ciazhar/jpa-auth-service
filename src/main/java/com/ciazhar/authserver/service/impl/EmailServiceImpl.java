@@ -1,6 +1,6 @@
 package com.ciazhar.authserver.service.impl;
 
-import com.ciazhar.authserver.dto.request.RegisterForm;
+import com.ciazhar.authserver.model.dto.request.RegisterForm;
 import com.ciazhar.authserver.service.EmailService;
 import com.ciazhar.authserver.util.email.EmailHtmlSender;
 import com.ciazhar.authserver.util.email.EmailStatus;

@@ -1,4 +1,4 @@
-package com.ciazhar.authserver.model;
+package com.ciazhar.authserver.model.jpa;
 
 
 

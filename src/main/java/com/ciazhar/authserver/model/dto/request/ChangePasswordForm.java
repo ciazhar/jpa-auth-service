@@ -1,4 +1,4 @@
-package com.ciazhar.authserver.dto.request;
+package com.ciazhar.authserver.model.dto.request;
 
 /**
  * Created by ciazhar on 6/21/17.

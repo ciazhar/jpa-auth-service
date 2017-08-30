@@ -1,4 +1,4 @@
-package com.ciazhar.authserver.dto.response;
+package com.ciazhar.authserver.model.dto.response;
 
 /**
  * Created by mirza on 11/12/16.

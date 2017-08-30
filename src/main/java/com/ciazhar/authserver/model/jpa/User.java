@@ -1,7 +1,7 @@
-package com.ciazhar.authserver.model;
+package com.ciazhar.authserver.model.jpa;
 
-import com.ciazhar.authserver.dto.request.ProfileForm;
-import com.ciazhar.authserver.dto.request.RegisterForm;
+import com.ciazhar.authserver.model.dto.request.ProfileForm;
+import com.ciazhar.authserver.model.dto.request.RegisterForm;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Email;
 

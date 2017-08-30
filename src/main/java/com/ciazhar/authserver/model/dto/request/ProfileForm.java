@@ -1,4 +1,4 @@
-package com.ciazhar.authserver.dto.request;
+package com.ciazhar.authserver.model.dto.request;
 
 import java.util.Date;
 

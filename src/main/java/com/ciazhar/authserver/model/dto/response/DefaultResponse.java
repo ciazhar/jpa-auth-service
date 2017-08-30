@@ -1,4 +1,4 @@
-package com.ciazhar.authserver.dto.response;
+package com.ciazhar.authserver.model.dto.response;
 
 import com.ciazhar.authserver.config.string.ErrorMessage;
 import com.ciazhar.authserver.config.string.SuccessMessage;

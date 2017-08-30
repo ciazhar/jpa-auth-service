@@ -1,37 +1,37 @@
-package com.ciazhar.authserver.model;
+package com.ciazhar.authserver.model.jpa;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 /**
  * Created by ciazhar on 5/27/17.
  */
 
-
 /**
- * Model untuk permmision
+ * Model untuk role
  */
 @Entity
-public class Permission {
+public class Role {
+
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid",strategy = "uuid2")
-    @Column(name = "id_permission")
+    @Column(name = "id_role")
     private String id;
 
-    @ManyToOne
-    @JoinColumn(name = "id_role")
-    private Role id_role;
-
+    @Column(name = "nama_role", unique = true)
     @NotNull
-    @Column(name = "nama_permission")
     private String nama;
 
+    @Column(name = "label_role")
     @NotNull
-    @Column(name = "label_permission")
     private String label;
+
 
     public String getId() {
         return id;
@@ -39,14 +39,6 @@ public class Permission {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public Role getId_role() {
-        return id_role;
-    }
-
-    public void setId_role(Role id_role) {
-        this.id_role = id_role;
     }
 
     public String getNama() {
@@ -64,4 +56,5 @@ public class Permission {
     public void setLabel(String label) {
         this.label = label;
     }
+
 }

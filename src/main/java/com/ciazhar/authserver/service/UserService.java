@@ -1,8 +1,8 @@
 package com.ciazhar.authserver.service;
 
-import com.ciazhar.authserver.dto.request.*;
-import com.ciazhar.authserver.dto.response.UploadPhotoData;
-import com.ciazhar.authserver.dto.response.UserData;
+import com.ciazhar.authserver.model.dto.request.*;
+import com.ciazhar.authserver.model.dto.response.UploadPhotoData;
+import com.ciazhar.authserver.model.dto.response.UserData;
 import com.ciazhar.authserver.model.exception.AlreadyInUseException;
 import com.ciazhar.authserver.model.exception.AuthException;
 import org.springframework.web.multipart.MultipartFile;

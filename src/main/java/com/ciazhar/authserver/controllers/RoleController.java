@@ -1,8 +1,8 @@
 package com.ciazhar.authserver.controllers;
 
-import com.ciazhar.authserver.dto.response.DefaultResponse;
-import com.ciazhar.authserver.dto.response.ResponseData;
-import com.ciazhar.authserver.model.Role;
+import com.ciazhar.authserver.model.dto.response.DefaultResponse;
+import com.ciazhar.authserver.model.dto.response.ResponseData;
+import com.ciazhar.authserver.model.jpa.Role;
 import com.ciazhar.authserver.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

@@ -1,11 +1,11 @@
 package com.ciazhar.authserver.controllers;
 
-import com.ciazhar.authserver.dto.request.*;
-import com.ciazhar.authserver.dto.response.DefaultResponse;
-import com.ciazhar.authserver.dto.response.ResponseData;
-import com.ciazhar.authserver.dto.response.UploadPhotoData;
-import com.ciazhar.authserver.dto.response.UserData;
-import com.ciazhar.authserver.model.User;
+import com.ciazhar.authserver.model.dto.request.*;
+import com.ciazhar.authserver.model.dto.response.DefaultResponse;
+import com.ciazhar.authserver.model.dto.response.ResponseData;
+import com.ciazhar.authserver.model.dto.response.UploadPhotoData;
+import com.ciazhar.authserver.model.dto.response.UserData;
+import com.ciazhar.authserver.model.jpa.User;
 import com.ciazhar.authserver.repository.UserRepository;
 import com.ciazhar.authserver.service.EmailService;
 import com.ciazhar.authserver.service.UserService;

@@ -1,6 +1,6 @@
 package com.ciazhar.authserver.repository;
 
-import com.ciazhar.authserver.model.Role;
+import com.ciazhar.authserver.model.jpa.Role;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**

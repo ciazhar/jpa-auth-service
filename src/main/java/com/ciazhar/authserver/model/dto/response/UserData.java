@@ -1,7 +1,7 @@
-package com.ciazhar.authserver.dto.response;
+package com.ciazhar.authserver.model.dto.response;
 
 import com.ciazhar.authserver.config.AppConfig;
-import com.ciazhar.authserver.model.User;
+import com.ciazhar.authserver.model.jpa.User;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
