@@ -1,8 +1,12 @@
 package com.ciazhar.authserver.model.dto.request
 
-class ChangeAndroidDeviceForm {
+import javax.validation.constraints.NotNull
 
-    var id: String? = null
-    var androidDeviceId: String? = null
+class ChangeAndroidDeviceForm (
 
-}
+        @field:NotNull
+        var id : String?=null,
+
+        @field:NotNull
+        var androidDeviceId : String?=null
+)

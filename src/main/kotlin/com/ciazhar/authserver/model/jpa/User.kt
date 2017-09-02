@@ -17,86 +17,82 @@ import java.util.Date
  * Model untuk user
  */
 @Entity
-class User {
+data class User (
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "id_user")
-    var id: String? = null
+    @field:Column(name = "id_user", length = 50)
+    var id: String? = null,
 
-    @Column(unique = true)
-    var username: String? = null
+    @field:NotNull
+    @field:Column(columnDefinition = "boolean DEFAULT 0")
+    var enabled: Boolean = false,
 
-    @NotNull
-    var password: String? = null
+    @field:NotNull
+    @field:Temporal(TemporalType.DATE)
+    var dateCreated: Date? = null,
 
-    @NotNull
-    @Column(columnDefinition = "boolean DEFAULT 1")
-    var isEnabled: Boolean = false
+    @field:Column(length = 15)
+    var androidDeviceId: String? = null,
 
-    @Email
-    @NotNull
-    @Column(unique = true)
-    var email: String? = null
+    @field:ManyToOne
+    @field:JoinColumn(name = "id_role", nullable = false)
+    @field:NotNull
+    var role: Role? = null,
 
-    var phoneNumber: String? = null
+
+    @field:Column(unique = true, length = 30)
+    @field:NotNull
+    var username: String? = null,
+
+    @field:Email
+    @field:NotNull
+    @field:Column(unique = true, length = 30)
+    var email: String? = null,
+
+    @field:NotNull
+    @field:Column(length = 100)
+    var password: String? = null,
+
+
+
+    @field:Column(length = 20)
+    var firstName: String? = null,
+
+    @field:Column(length = 20)
+    var lastName: String? = null,
+
+    @field:Temporal(TemporalType.DATE)
+    var dateOfBirth: Date? = null,
+
+    @field:Column(length = 12)
+    var phoneNumber: String? = null,
 
     var avatar: String? = null
 
-    var firstName: String? = null
 
-    var lastName: String? = null
-
-    @Temporal(TemporalType.DATE)
-    var birthDate: Date? = null
-
-    @NotNull
-    @Temporal(TemporalType.DATE)
-    var createdDate: Date? = null
-
-    //    @NotNull
-    var androidDeviceId: String? = null
-
-    @ManyToOne
-    @JoinColumn(name = "id_role", nullable = false)
-    @NotNull
-    var role: Role? = null
-
-    constructor() {}
-
-    constructor(username: String, password: String, enabled: Boolean, email: String, phoneNumber: String, avatar: String, firstName: String, lastName: String, birthDate: Date, createdDate: Date, androidDeviceId: String, role: Role) {
-        this.username = username
-        this.password = password
-        this.isEnabled = enabled
-        this.email = email
-        this.phoneNumber = phoneNumber
-        this.avatar = avatar
-        this.firstName = firstName
-        this.lastName = lastName
-        this.birthDate = birthDate
-        this.createdDate = createdDate
-        this.androidDeviceId = androidDeviceId
-        this.role = role
+){
+    init {
+        enabled = false
+        dateCreated = Date()
+        role = Role("2", "BASIC_USER", "Basic User")
     }
 
-    constructor(form: RegisterForm, role: Role, date: Date) {
-        this.password = form.password
-        this.email = form.email
-        this.createdDate = date
-        this.role = role
+    constructor(registerForm: RegisterForm) : this(null,false,null,null,null,null,null,null,null,null,null,null,null){
+        this.username = registerForm.username
+        this.email = registerForm.email
+        this.password = registerForm.password
     }
 
-    fun setProfileForm(profileForm: ProfileForm) {
+    constructor(profileForm: ProfileForm) : this(null,false,null,null,null,null,null,null,null,null,null,null,null){
         this.id = profileForm.id
         this.username = profileForm.username
-        this.firstName = profileForm.firstname
-        this.lastName = profileForm.lastname
-        this.avatar = profileForm.avatar
-        this.birthDate = profileForm.birthDate
-        this.androidDeviceId = profileForm.androidDeviceId
         this.email = profileForm.email
-        this.phoneNumber = profileForm.phone
         this.password = profileForm.password
+        this.firstName = profileForm.firstName
+        this.lastName = profileForm.lastName
+        this.dateOfBirth = profileForm.dateOfBirth
+        this.avatar = profileForm.avatar
     }
 
 }

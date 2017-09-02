@@ -1,6 +1,6 @@
 package com.ciazhar.authserver.util.email
 
-class EmailStatus(val to: String, val subject: String, val body: String) {
+class EmailStatus(val to: String?, val subject: String, val body: String) {
 
     var status: String? = null
         private set
@@ -12,7 +12,7 @@ class EmailStatus(val to: String, val subject: String, val body: String) {
         return this
     }
 
-    fun error(errorMessage: String): EmailStatus {
+    fun error(errorMessage: String?): EmailStatus {
         this.status = ERROR
         this.errorMessage = errorMessage
         return this

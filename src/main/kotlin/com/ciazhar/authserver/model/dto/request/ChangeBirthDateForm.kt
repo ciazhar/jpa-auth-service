@@ -1,9 +1,13 @@
 package com.ciazhar.authserver.model.dto.request
 
 import java.util.Date
+import javax.validation.constraints.NotNull
 
-class ChangeBirthDateForm {
+class ChangeBirthDateForm (
 
-    var id: String? = null
-    var birthDate: Date? = null
-}
+        @field:NotNull
+        var id: String?=null,
+
+        @field:NotNull
+        var birthDate: Date?=null
+)

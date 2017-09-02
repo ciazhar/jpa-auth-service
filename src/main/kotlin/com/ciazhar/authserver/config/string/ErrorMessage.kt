@@ -5,6 +5,7 @@ package com.ciazhar.authserver.config.string
  */
 
 object ErrorMessage {
+    val REQUEST = "Request Error"
     val ERROR = "Error"
     val UNKNOWN_ERROR = "An error occured when post data to server, please try again!"
     val NO_DATA_ERROR = "No data were available from your request!"

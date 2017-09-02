@@ -14,22 +14,22 @@ import javax.validation.constraints.NotNull
  * Model untuk permmision
  */
 @Entity
-class Permission {
+data class Permission (
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "id_permission")
-    var id: String? = null
+    @field:Column(name = "id_permission")
+    var id: String? = null,
 
-    @ManyToOne
-    @JoinColumn(name = "id_role")
-    var id_role: Role? = null
+    @field:ManyToOne
+    @field:JoinColumn(name = "id_role")
+    var id_role: Role? = null,
 
-    @NotNull
-    @Column(name = "nama_permission")
-    var nama: String? = null
+    @field:NotNull
+    @field:Column(name = "nama_permission")
+    var nama: String? = null,
 
-    @NotNull
-    @Column(name = "label_permission")
+    @field:NotNull
+    @field:Column(name = "label_permission")
     var label: String? = null
-}
+)

@@ -9,17 +9,14 @@ import org.springframework.stereotype.Service
 import org.thymeleaf.context.Context
 
 @Service
-class EmailServiceImpl : EmailService {
-
-    @Autowired
-    var emailHtmlSender: EmailHtmlSender? = null
+class EmailServiceImpl (private val emailHtmlSender: EmailHtmlSender): EmailService {
 
     override fun sendEmail(form: RegisterForm): EmailStatus {
         val context = Context()
-        context.setVariable("title", "Clorus Email Verification")
-        context.setVariable("description", "To Verify your clorus account please click link below ")
+        context.setVariable("title", "Email Verification")
+        context.setVariable("description", "To Verify your account please click link below ")
         context.setVariable("email", form.email)
 
-        return emailHtmlSender!!.send(form.email, "Clorus Email Verification", "mail", context)
+        return emailHtmlSender.send(form.email, "Email Verification", "mail", context)
     }
 }

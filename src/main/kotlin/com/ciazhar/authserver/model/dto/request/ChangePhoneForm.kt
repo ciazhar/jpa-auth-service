@@ -1,8 +1,13 @@
 package com.ciazhar.authserver.model.dto.request
 
-class ChangePhoneForm {
+import javax.validation.constraints.NotNull
 
-    var id: String? = null
+class ChangePhoneForm (
+
+    @field:NotNull
+    var id: String? = null,
+
+    @field:NotNull
     var phone: String? = null
 
-}
+)

@@ -82,62 +82,62 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
     }
 
 
-    @Autowired
-    internal var oauth2ClientContext: OAuth2ClientContext? = null
-
-    /**
-     * Resource untuk SSO ke github
-     * @return
-     */
-    @Bean
-    @ConfigurationProperties("github")
-    fun github(): ClientResources {
-        return ClientResources()
-    }
-
-    /**
-     * Resource untuk SSO ke facebook
-     * @return
-     */
-    @Bean
-    @ConfigurationProperties("facebook")
-    fun facebook(): ClientResources {
-        return ClientResources()
-    }
-
-
-    /**
-     * Mendaftarkan Resouce untuk SSO
-     * @return
-     */
-    private fun ssoFilter(): Filter {
-        val filter = CompositeFilter()
-        val filters = ArrayList<Filter>()
-
-        filters.add(ssoFilter(facebook(), "/login/facebook"))
-        filters.add(ssoFilter(github(), "/login/github"))
-        filter.setFilters(filters)
-        return filter
-    }
-
-    /**
-     * Implementasi SSO
-     * @param client
-     * @param path
-     * @return
-     */
-    private fun ssoFilter(client: ClientResources, path: String): Filter {
-        val filter = OAuth2ClientAuthenticationProcessingFilter(path)
-        val template = OAuth2RestTemplate(client.client, oauth2ClientContext)
-        filter.setRestTemplate(template)
-        val tokenServices = UserInfoTokenServices(
-                client.resource.userInfoUri, client.client.clientId)
-        tokenServices.setRestTemplate(template)
-        filter.setTokenServices(tokenServices)
-        return filter
-    }
-
-
+//    @Autowired
+//    internal var oauth2ClientContext: OAuth2ClientContext? = null
+//
+//    /**
+//     * Resource untuk SSO ke github
+//     * @return
+//     */
+//    @Bean
+//    @ConfigurationProperties("github")
+//    fun github(): ClientResources {
+//        return ClientResources()
+//    }
+//
+//    /**
+//     * Resource untuk SSO ke facebook
+//     * @return
+//     */
+//    @Bean
+//    @ConfigurationProperties("facebook")
+//    fun facebook(): ClientResources {
+//        return ClientResources()
+//    }
+//
+//
+//    /**
+//     * Mendaftarkan Resouce untuk SSO
+//     * @return
+//     */
+//    private fun ssoFilter(): Filter {
+//        val filter = CompositeFilter()
+//        val filters = ArrayList<Filter>()
+//
+//        filters.add(ssoFilter(facebook(), "/login/facebook"))
+//        filters.add(ssoFilter(github(), "/login/github"))
+//        filter.setFilters(filters)
+//        return filter
+//    }
+//
+//    /**
+//     * Implementasi SSO
+//     * @param client
+//     * @param path
+//     * @return
+//     */
+//    private fun ssoFilter(client: ClientResources, path: String): Filter {
+//        val filter = OAuth2ClientAuthenticationProcessingFilter(path)
+//        val template = OAuth2RestTemplate(client.client, oauth2ClientContext)
+//        filter.setRestTemplate(template)
+//        val tokenServices = UserInfoTokenServices(
+//                client.resource.userInfoUri, client.client.clientId)
+//        tokenServices.setRestTemplate(template)
+//        filter.setTokenServices(tokenServices)
+//        return filter
+//    }
+//
+//
     /**
      * Bean untuk konfigurasi http
      * @param http
@@ -159,36 +159,36 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
                 .logout().logoutSuccessUrl("/").permitAll()
                 .and()
                 .csrf().ignoringAntMatchers("/mobile/**")
-                .and()
-                .addFilterBefore(ssoFilter(), BasicAuthenticationFilter::class.java)
+//                .and()
+//                .addFilterBefore(ssoFilter(), BasicAuthenticationFilter::class.java)
 
     }
 
-    /**
-     * Bean untuk filter
-     * @param filter
-     * @return
-     */
-    @Bean
-    fun oauth2ClientFilterRegistration(
-            filter: OAuth2ClientContextFilter): FilterRegistrationBean {
-        val registration = FilterRegistrationBean()
-        registration.filter = filter
-        registration.order = -100
-        return registration
-    }
-
-    /**
-     * Class untuk mendefinisikan Resource untuk SSO
-     */
-    internal inner class ClientResources {
-
-        @NestedConfigurationProperty
-        val client = AuthorizationCodeResourceDetails()
-
-        @NestedConfigurationProperty
-        val resource = ResourceServerProperties()
-    }
+//    /**
+//     * Bean untuk filter
+//     * @param filter
+//     * @return
+//     */
+//    @Bean
+//    fun oauth2ClientFilterRegistration(
+//            filter: OAuth2ClientContextFilter): FilterRegistrationBean {
+//        val registration = FilterRegistrationBean()
+//        registration.filter = filter
+//        registration.order = -100
+//        return registration
+//    }
+//
+//    /**
+//     * Class untuk mendefinisikan Resource untuk SSO
+//     */
+//    internal inner class ClientResources {
+//
+//        @NestedConfigurationProperty
+//        val client = AuthorizationCodeResourceDetails()
+//
+//        @NestedConfigurationProperty
+//        val resource = ResourceServerProperties()
+//    }
 
     companion object {
 

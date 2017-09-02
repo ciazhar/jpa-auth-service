@@ -7,15 +7,10 @@ import org.thymeleaf.context.Context
 
 
 @Component
-class EmailHtmlSender {
-    @Autowired
-    private val mailSender: EmailSender? = null
+class EmailHtmlSender (private val mailSender:EmailSender, private val templateEngine: TemplateEngine){
 
-    @Autowired
-    private val templateEngine: TemplateEngine? = null
-
-    fun send(to: String, subject: String, templateName: String, context: Context): EmailStatus {
-        val body = templateEngine!!.process(templateName, context)
-        return mailSender!!.sendHtml(to, subject, body)
+    fun send(to: String?, subject: String, templateName: String, context: Context): EmailStatus {
+        val body = templateEngine.process(templateName, context)
+        return mailSender.sendHtml(to, subject, body)
     }
 }

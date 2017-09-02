@@ -27,220 +27,94 @@ import javax.validation.Valid
  */
 @RestController
 @RequestMapping("api/user", "/mobile/user")
-class UserController {
+class UserController @Autowired constructor(private val service: UserService){
 
-    @Autowired
-    private val userRepository: UserRepository? = null
-    @Autowired
-    private val userService: UserService? = null
-    @Autowired
-    private val emailService: EmailService? = null
-
-    /**
-     * API untuk session user yang sedang login
-     * @param authentication
-     * @return
-     */
-    // @PreAuthorize("hasAuthority('SUPER_USER')")
     @PreAuthorize("permitAll()")
-    @RequestMapping(method = arrayOf(RequestMethod.GET))
-    @Throws(Exception::class)
-    fun current(authentication: Authentication): ResponseData<Authentication> {
-        val responseData = ResponseData<Authentication>()
-        responseData.data = authentication
-        return responseData
+    @PostMapping("/register")
+    fun register(@RequestBody @Valid form: RegisterForm): ResponseData<*> {
+        return register(form)
     }
-
-    /**
-     * API untuk register without CSRF protection
-     * @param form
-     * @return
-     */
     @PreAuthorize("permitAll()")
-    @RequestMapping(method = arrayOf(RequestMethod.POST), value = "/register")
-    @Throws(Exception::class)
-    fun register(@RequestBody @Valid form: RegisterForm): ResponseData<Any> {
-        val responseData = ResponseData<Any>()
-        userService!!.register(form)
-        responseData.data = emailService!!.sendEmail(form)
-        return responseData
+    @GetMapping
+    fun current(authentication: Authentication): ResponseData<*> {
+        return service.current(authentication)
     }
 
-    /**
-     * API untuk mencari user berdasarkan id user
-     * @param id
-     * @return
-     */
     @PreAuthorize("hasAuthority('SUPER_USER')")
-    @RequestMapping(method = arrayOf(RequestMethod.GET), value = "/single")
-    fun findSingle(@RequestParam id: String): ResponseData<User> {
-        val responseData = ResponseData<User>()
-        responseData.data = userRepository!!.findOne(id)
-        return responseData
+    @RequestMapping("/all")
+    fun findAll(): ResponseData<*> {
+        return service.findAll()
     }
 
-    /**
-     * API untuk melihat semua user
-     * @return
-     */
     @PreAuthorize("hasAuthority('SUPER_USER')")
-    @RequestMapping(method = arrayOf(RequestMethod.GET), value = "/all")
-    @Throws(Exception::class)
-    fun findAll(): ResponseData<Iterable<User>> {
-        val responseData = ResponseData<Iterable<User>>()
-        responseData.data = userRepository!!.findAll()
-        return responseData
+    @GetMapping("/one")
+    fun findSingle(@RequestParam id: String): ResponseData<*> {
+        return service.findOne(id)
     }
 
-    /**
-     * API untuk mengupdate profil
-     * @param form
-     * @return
-     * @throws Exception
-     */
     @PreAuthorize("hasAuthority('BASIC_USER')")
-    @RequestMapping(method = arrayOf(RequestMethod.POST), value = "/update")
-    @Throws(Exception::class)
-    fun updateProfile(@Valid @RequestBody form: ProfileForm): ResponseData<UserData> {
-        val responseData = ResponseData<UserData>()
-        responseData.data = userService!!.updateProfile(form)
-        return responseData
+    @PostMapping("/update")
+    fun updateProfile(@Valid @RequestBody form: ProfileForm): ResponseData<*> {
+        return service.updateProfile(form)
     }
 
-    /**
-     * API untuk mengubah username
-     * @param request
-     * @param form
-     * @return
-     * @throws Exception
-     */
     @PreAuthorize("hasAuthority('BASIC_USER')")
-    @RequestMapping(method = arrayOf(RequestMethod.POST), value = "/change-username")
-    @Throws(Exception::class)
-    fun changeUsername(request: HttpServletRequest, @Valid @RequestBody form: ChangeUsernameForm): ResponseData<Any> {
-        userService!!.changeUsername(form)
-        return DefaultResponse.success()
+    @PostMapping("/change-username")
+    fun changeUsername(@Valid @RequestBody form: ChangeUsernameForm): ResponseData<*> {
+        return service.changeUsername(form)
     }
 
-    /**
-     * API untuk mengubah nomor telephon
-     * @param request
-     * @param form
-     * @return
-     * @throws Exception
-     */
     @PreAuthorize("hasAuthority('BASIC_USER')")
-    @RequestMapping(method = arrayOf(RequestMethod.POST), value = "/change-phone")
-    @Throws(Exception::class)
-    fun changePhone(request: HttpServletRequest, @Valid @RequestBody form: ChangePhoneForm): ResponseData<Any> {
-        userService!!.changePhone(form)
-        return DefaultResponse.success()
+    @PostMapping("/change-phone")
+    fun changePhone(@Valid @RequestBody form: ChangePhoneForm): ResponseData<*> {
+        return service.changePhone(form)
     }
 
-    /**
-     * API untuk mengubah tanggal lahir
-     * @param request
-     * @param form
-     * @return
-     * @throws Exception
-     */
     @PreAuthorize("hasAuthority('BASIC_USER')")
-    @RequestMapping(method = arrayOf(RequestMethod.POST), value = "/change-birthdate")
-    @Throws(Exception::class)
-    fun changePBirthDate(request: HttpServletRequest, @Valid @RequestBody form: ChangeBirthDateForm): ResponseData<Any> {
-        userService!!.changeBirthdate(form)
-        return DefaultResponse.success()
+    @PostMapping("/change-birthdate")
+    fun changeBirthDate(@Valid @RequestBody form: ChangeBirthDateForm): ResponseData<*> {
+        return service.changeBirthdate(form)
     }
 
-    /**
-     * API untuk mengubah password
-     * @param form
-     * @return
-     * @throws Exception
-     */
     @PreAuthorize("hasAuthority('BASIC_USER')")
-    @RequestMapping(method = arrayOf(RequestMethod.POST), value = "/change-password")
-    @Throws(Exception::class)
-    fun changePassword(
-            @Valid @RequestBody form: ChangePasswordForm): ResponseData<Any> {
-        userService!!.changePassword(form)
-        return DefaultResponse.success()
+    @PostMapping("/change-password")
+    fun changePassword(@Valid @RequestBody form: ChangePasswordForm): ResponseData<*> {
+        return service.changePassword(form)
     }
 
-    /**
-     * API untuk menguba email
-     * @param request
-     * @param form
-     * @return
-     * @throws Exception
-     */
     @PreAuthorize("hasAuthority('BASIC_USER')")
-    @RequestMapping(method = arrayOf(RequestMethod.POST), value = "/change-email")
-    @Throws(Exception::class)
-    fun changeEmail(request: HttpServletRequest, @Valid @RequestBody form: ChangeEmailForm): ResponseData<Any> {
-        userService!!.changeEmail(form)
-        return DefaultResponse.success()
+    @PostMapping("/change-email")
+    fun changeEmail(@Valid @RequestBody form: ChangeEmailForm): ResponseData<*> {
+        return service.changeEmail(form)
     }
 
-    /**
-     * API untuk mengubah role
-     * @param form
-     * @return
-     * @throws Exception
-     */
     @PreAuthorize("hasAuthority('SUPER_USER')")
-    @RequestMapping(method = arrayOf(RequestMethod.POST), value = "change/role")
-    @Throws(Exception::class)
-    fun changeRole(@Valid @RequestBody form: ChangeRoleForm): ResponseData<Any> {
-        userService!!.changeRole(form)
-        return DefaultResponse.success()
+    @PostMapping("change/role")
+    fun changeRole(@Valid @RequestBody form: ChangeRoleForm): ResponseData<*> {
+        return service.changeRole(form)
     }
 
-    /**
-     * API untuk upload avatar
-     * @param request
-     * @param id
-     * @param photo
-     * @return
-     * @throws Exception
-     */
+
+//    @PreAuthorize("hasAuthority('BASIC_USER')")
+//    @RequestMapping(method = arrayOf(RequestMethod.POST), value = "/upload/avatar")
+//    @Throws(Exception::class)
+//    fun uploadAvatar(request: HttpServletRequest,
+//                     @RequestParam("id") id: String,
+//                     @RequestParam("photo") photo: MultipartFile): ResponseData<UploadPhotoData> {
+//        val responseData = ResponseData<UploadPhotoData>()
+//        responseData.data = userService!!.uploadAvatar(request, id, photo)
+//        return responseData
+//    }
+
     @PreAuthorize("hasAuthority('BASIC_USER')")
-    @RequestMapping(method = arrayOf(RequestMethod.POST), value = "/upload/avatar")
-    @Throws(Exception::class)
-    fun uploadAvatar(request: HttpServletRequest,
-                     @RequestParam("id") id: String,
-                     @RequestParam("photo") photo: MultipartFile): ResponseData<UploadPhotoData> {
-        val responseData = ResponseData<UploadPhotoData>()
-        responseData.data = userService!!.uploadAvatar(request, id, photo)
-        return responseData
+    @PostMapping("/device/android")
+    fun changeAndroidHardwareId(@Valid @RequestBody form: ChangeAndroidDeviceForm): ResponseData<*> {
+        return service.changeAndroidDevice(form)
     }
 
-    /**
-     * API untuk mengubah Android Hardware ID
-     * @param request
-     * @param form
-     * @return
-     * @throws Exception
-     */
-    @PreAuthorize("hasAuthority('BASIC_USER')")
-    @RequestMapping(method = arrayOf(RequestMethod.POST), value = "/device/android")
-    @Throws(Exception::class)
-    fun changeAndroidHardwareId(request: HttpServletRequest, @Valid @RequestBody form: ChangeAndroidDeviceForm): ResponseData<Any> {
-        userService!!.changeAndroidDevice(form)
-        return DefaultResponse.success()
-    }
-
-    /**
-     * Delete User By ID
-     * @param id
-     * @return
-     * @throws Exception
-     */
     @PreAuthorize("hasAuthority('SUPER_USER')")
-    @RequestMapping(method = arrayOf(RequestMethod.POST), value = "/delete")
-    @Throws(Exception::class)
-    fun deleteAccount(@RequestBody id: String): ResponseData<Any> {
-        userRepository!!.delete(id)
-        return DefaultResponse.success()
+    @PostMapping("/delete")
+    fun deleteAccount(@RequestBody id: String): ResponseData<*> {
+        return service.delete(id)
     }
 }

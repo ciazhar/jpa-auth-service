@@ -1,8 +1,13 @@
 package com.ciazhar.authserver.model.dto.request
 
-class ChangeUsernameForm {
+import javax.validation.constraints.NotNull
 
-    var id: String? = null
-    var username: String? = null
+class ChangeUsernameForm (
 
-}
+        @field:NotNull
+        var id: String? = null,
+
+        @field:NotNull
+        var username: String? = null
+
+)

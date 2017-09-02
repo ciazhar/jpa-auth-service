@@ -1,10 +1,13 @@
 package com.ciazhar.authserver.service
 
 import com.ciazhar.authserver.model.dto.request.*
+import com.ciazhar.authserver.model.dto.response.ResponseData
 import com.ciazhar.authserver.model.dto.response.UploadPhotoData
 import com.ciazhar.authserver.model.dto.response.UserData
 import com.ciazhar.authserver.model.exception.AlreadyInUseException
 import com.ciazhar.authserver.model.exception.AuthException
+import org.springframework.security.core.Authentication
+import org.springframework.ui.Model
 import org.springframework.web.multipart.MultipartFile
 
 import javax.servlet.http.HttpServletRequest
@@ -16,33 +19,33 @@ import javax.servlet.http.HttpServletRequest
 
 interface UserService {
 
-    @Throws(Exception::class)
-    fun register(form: RegisterForm)
+    fun register(form: RegisterForm) : ResponseData<*>
 
-    @Throws(Exception::class)
-    fun updateProfile(form: ProfileForm): UserData
+    fun activate(email : String, model : Model):String
 
-    @Throws(AuthException::class)
-    fun changePassword(form: ChangePasswordForm)
+    fun current(authentication : Authentication) : ResponseData<*>
 
-    @Throws(AuthException::class, AlreadyInUseException::class)
-    fun changeUsername(form: ChangeUsernameForm)
+    fun findAll() : ResponseData<*>
 
-    @Throws(AuthException::class, AlreadyInUseException::class)
-    fun changeEmail(form: ChangeEmailForm)
+    fun findOne(id : String) : ResponseData<*>
 
-    @Throws(AuthException::class)
-    fun changeBirthdate(form: ChangeBirthDateForm)
+    fun updateProfile(form: ProfileForm): ResponseData<*>
 
-    @Throws(AuthException::class, AlreadyInUseException::class)
-    fun changePhone(form: ChangePhoneForm)
+    fun changePassword(form: ChangePasswordForm) : ResponseData<*>
 
-    @Throws(AuthException::class)
-    fun changeRole(form: ChangeRoleForm)
+    fun changeUsername(form: ChangeUsernameForm) : ResponseData<*>
 
-    @Throws(Exception::class)
-    fun uploadAvatar(request: HttpServletRequest, id: String, photo: MultipartFile): UploadPhotoData
+    fun changeEmail(form: ChangeEmailForm) : ResponseData<*>
 
-    @Throws(AuthException::class)
-    fun changeAndroidDevice(form: ChangeAndroidDeviceForm)
+    fun changeBirthdate(form: ChangeBirthDateForm) : ResponseData<*>
+
+    fun changePhone(form: ChangePhoneForm) : ResponseData<*>
+
+    fun changeRole(form: ChangeRoleForm) : ResponseData<*>
+
+//    fun uploadAvatar(request: HttpServletRequest, id: String, photo: MultipartFile): UploadPhotoData
+
+    fun changeAndroidDevice(form: ChangeAndroidDeviceForm) : ResponseData<*>
+
+    fun delete(id : String) : ResponseData<*>
 }

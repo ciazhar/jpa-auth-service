@@ -16,20 +16,20 @@ import javax.validation.constraints.NotNull
  * Model untuk role
  */
 @Entity
-class Role {
+data class Role (
 
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "id_role")
-    var id: String? = null
+    @field:Column(name = "id_role")
+    var id: String? = null,
 
-    @Column(name = "nama_role", unique = true)
-    @NotNull
-    var nama: String? = null
+    @field:Column(name = "nama_role", unique = true)
+    @field:NotNull
+    var nama: String? = null,
 
-    @Column(name = "label_role")
-    @NotNull
+    @field:Column(name = "label_role")
+    @field:NotNull
     var label: String? = null
 
-}
+)

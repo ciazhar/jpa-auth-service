@@ -3,16 +3,17 @@ package com.ciazhar.authserver.model.dto.request
 import javax.validation.constraints.NotNull
 
 /**
- * Created by ciazhar on 6/21/17.
+ * Created by ciazhar on 9/2/17.
  */
-class ChangePasswordForm (
+
+class RegisterForm(
 
         @field:NotNull
-        var id: String?=null,
+        var username : String?=null,
 
         @field:NotNull
-        var oldPassword: String?=null,
+        var email : String?=null,
 
         @field:NotNull
-        var newPassword: String?=null
+        var password : String?=null
 )

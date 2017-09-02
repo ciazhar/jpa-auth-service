@@ -2,7 +2,6 @@ package com.ciazhar.authserver.service
 
 import com.ciazhar.authserver.util.ImageUtil
 import org.apache.commons.io.FilenameUtils
-import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
@@ -10,7 +9,6 @@ import org.springframework.web.multipart.MultipartFile
 
 import javax.imageio.ImageIO
 import javax.servlet.http.HttpServletRequest
-import java.awt.image.BufferedImage
 import java.io.ByteArrayInputStream
 import java.io.File
 import java.io.IOException

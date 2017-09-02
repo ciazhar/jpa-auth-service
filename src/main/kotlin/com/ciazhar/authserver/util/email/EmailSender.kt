@@ -21,11 +21,11 @@ class EmailSender {
         return sendM(to, subject, text, false)
     }
 
-    fun sendHtml(to: String, subject: String, htmlBody: String): EmailStatus {
+    fun sendHtml(to: String?, subject: String, htmlBody: String): EmailStatus {
         return sendM(to, subject, htmlBody, true)
     }
 
-    private fun sendM(to: String, subject: String, text: String, isHtml: Boolean?): EmailStatus {
+    private fun sendM(to: String?, subject: String, text: String, isHtml: Boolean?): EmailStatus {
         try {
             val mail = javaMailSender!!.createMimeMessage()
             val helper = MimeMessageHelper(mail, true)
