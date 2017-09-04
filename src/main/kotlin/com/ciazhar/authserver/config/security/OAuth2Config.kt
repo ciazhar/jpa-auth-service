@@ -93,6 +93,12 @@ class OAuth2Config {
                     .authorizedGrantTypes("authorization_code", "refresh_token")
                     .authorities("CLIENT")
                     .scopes("read", "write")
+                    .and()
+                    .withClient("web")
+                    .secret("123456")
+                    .authorizedGrantTypes("password")
+                    .authorities("CLIENT")
+                    .scopes("read", "write")
         }
 
     }
