@@ -1,5 +1,5 @@
 # Authorization Server
-Authorization Server adalah backend server yang digunakan untuk otorisasi, databse costumer, .
+Authorization Server adalah backend server yang digunakan untuk otorisasi dan databse user.
 
 ## Stack 
 - Spring Boot
