@@ -32,9 +32,6 @@ data class User (
     @field:Temporal(TemporalType.DATE)
     var dateCreated: Date? = null,
 
-    @field:Column(length = 15)
-    var androidDeviceId: String? = null,
-
     @field:ManyToOne
     @field:JoinColumn(name = "id_role", nullable = false)
     @field:NotNull
@@ -78,13 +75,13 @@ data class User (
         role = Role("2", "BASIC_USER", "Basic User")
     }
 
-    constructor(registerForm: RegisterForm) : this(null,false,null,null,null,null,null,null,null,null,null,null,null){
+    constructor(registerForm: RegisterForm) : this(null,false,null,null,null,null,null,null,null,null,null,null){
         this.username = registerForm.username
         this.email = registerForm.email
         this.password = registerForm.password
     }
 
-    constructor(profileForm: ProfileForm) : this(null,false,null,null,null,null,null,null,null,null,null,null,null){
+    constructor(profileForm: ProfileForm) : this(null,false,null,null,null,null,null,null,null,null,null,null){
         this.id = profileForm.id
         this.username = profileForm.username
         this.email = profileForm.email
