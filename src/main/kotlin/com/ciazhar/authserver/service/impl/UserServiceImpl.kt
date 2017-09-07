@@ -16,8 +16,11 @@ import com.ciazhar.authserver.service.EmailService
 import com.ciazhar.authserver.service.UploadService
 import com.ciazhar.authserver.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.Authentication
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import org.springframework.ui.Model
 import org.springframework.web.multipart.MultipartFile
 import java.util.*
@@ -36,133 +39,113 @@ class UserServiceImpl (private val userRepository: UserRepository,
                        private val emailService: EmailService
                        ): UserService{
 
+
+
     override fun register(form: RegisterForm) :ResponseData<*> {
-        try {
-            userRepository.save(User(form))
-            emailService.sendEmail(form)
-        } catch (e: Exception) {
-            return ResponseData<Objects>(status = "Register Failed",message = e.message)
-        }
+        val encoder = BCryptPasswordEncoder()
+        val encodedValue = encoder.encode(form.password)
+
+        form.password = encodedValue
+        userRepository.save(User(form))
+        emailService.sendEmail(form)
+
         return ResponseData(form)
     }
 
     override fun current(authentication: Authentication): ResponseData<*> {
-        try {
-            return ResponseData(authentication)
-        } catch (e: Exception) {
-            return ResponseData<Objects>(status = ErrorMessage.REQUEST,message = e.message)
-        }
+        return ResponseData(authentication)
     }
 
     override fun activate(email: String, model: Model): String {
-        try{
-            val user = userRepository.findByEmail(email)
-            model.addAttribute("email", user.email)
-            user.enabled = true
-            userRepository.save(user)
-        }
-        catch(e: Exception){
-            "/error"
-        }
+        val user = userRepository.findByEmail(email)
+
+        model.addAttribute("email", user.email)
+        user.enabled = true
+        userRepository.save(user)
+
         return "/activate"
     }
 
     override fun findAll(): ResponseData<*> {
-        try {
-            return ResponseData(userRepository.findAll())
-        } catch (e: Exception) {
-            return ResponseData<Objects>(status = ErrorMessage.REQUEST,message = e.message)
-        }
+        return ResponseData(userRepository.findAll())
     }
 
     override fun findOne(id: String): ResponseData<*> {
-        try {
-            return ResponseData(userRepository.findOne(id))
-        } catch (e: Exception) {
-            return ResponseData<Objects>(status = ErrorMessage.REQUEST,message = e.message)
-        }
+        val user = userRepository.findOne(id)?: return ResponseData<Objects>(status = "Update Failed",message = "ID Not Found")
+
+        return ResponseData(user)
     }
 
     override fun updateProfile(form: ProfileForm): ResponseData<*>{
-        try {
-            userRepository.save(User(form))
-        } catch (e: Exception) {
-            return ResponseData<Objects>(status = "Update Failed",message = e.message)
-        }
-        return ResponseData(form)
+        val encoder = BCryptPasswordEncoder()
+        val encodedValue = encoder.encode(form.password)
+
+        form.password = encodedValue
+        val user = User(form)
+        userRepository.save(user)
+
+        return ResponseData(user)
     }
 
     override fun changePassword(form: ChangePasswordForm) : ResponseData<*>{
-        try {
-            val u = userRepository.findOne(form.id)
-            if (u.password == form.oldPassword) {
-                u.password = form.newPassword
-            }
-            else{
-                return ResponseData<Objects>(status = "Update Failed",message = "Old Password Not Same")
-            }
-            userRepository.save(u)
-        } catch (e: Exception) {
-            return ResponseData<Objects>(status = "Update Failed",message = e.message)
+        val encoder = BCryptPasswordEncoder()
+        val user = userRepository.findOne(form.id) ?: return ResponseData<Objects>(status = "Update Failed",message = "ID Not Found")
+
+        if (encoder.matches(form.oldPassword,user.password)) {
+            val encodedValue = encoder.encode(form.newPassword)
+            user.password = encodedValue
+            userRepository.save(user)
+            return ResponseData(user)
         }
-        return ResponseData(form)
+        else{
+            return ResponseData<Objects>(status = "Update Failed",message = "Old Password Not Same")
+        }
     }
 
     override fun changeUsername(form: ChangeUsernameForm) : ResponseData<*>{
-        try {
-            val user = userRepository.findOne(form.id)
-            user.username = form.username
-            userRepository.save(user)
-        } catch (e: Exception) {
-            return ResponseData<Objects>(status = "Update Failed",message = e.message)
-        }
-        return ResponseData(form)
+        val user = userRepository.findOne(form.id)?: return ResponseData<Objects>(status = "Update Failed",message = "ID Not Found")
 
+        user.username = form.username
+        userRepository.save(user)
+
+        return ResponseData(user)
     }
 
     override fun changeEmail(form: ChangeEmailForm) : ResponseData<*>{
-        try {
-            val user = userRepository.findOne(form.id)
-            user.email = form.email
-            userRepository.save(user)
-        } catch (e: Exception) {
-            return ResponseData<Objects>(status = "Update Failed",message = e.message)
-        }
-        return ResponseData(form)
+        val user = userRepository.findOne(form.id)?: return ResponseData<Objects>(status = "Update Failed",message = "ID Not Found")
+
+        user.email = form.email
+        userRepository.save(user)
+
+        return ResponseData(user)
     }
 
 
     override fun changeBirthdate(form: ChangeBirthDateForm) : ResponseData<*>{
-        try {
-            val user = userRepository.findOne(form.id)
-            user.dateOfBirth = form.birthDate
-            userRepository.save(user)
-        } catch (e: Exception) {
-            return ResponseData<Objects>(status = "Update Failed",message = e.message)
-        }
-        return ResponseData(form)
+        val user = userRepository.findOne(form.id)?: return ResponseData<Objects>(status = "Update Failed",message = "ID Not Found")
+
+        user.dateOfBirth = form.birthDate
+        userRepository.save(user)
+
+        return ResponseData(user)
     }
 
     override fun changePhone(form: ChangePhoneForm) : ResponseData<*>{
-        try {
-            val user = userRepository.findOne(form.id)
-            user.phoneNumber = form.phone
-            userRepository.save(user)
-        } catch (e: Exception) {
-            return ResponseData<Objects>(status = "Update Failed",message = e.message)
-        }
-        return ResponseData(form)
+        val user = userRepository.findOne(form.id)?: return ResponseData<Objects>(status = "Update Failed",message = "ID Not Found")
+
+        user.phoneNumber = form.phone
+        userRepository.save(user)
+
+        return ResponseData(user)
     }
 
     override fun changeRole(form: ChangeRoleForm) : ResponseData<*>{
-        try {
-            val user = userRepository.findOne(form.id)
-            user.role = roleRepository.findByNama(form.role)
-            userRepository.save(user)
-        } catch (e: Exception) {
-            return ResponseData<Objects>(status = "Update Failed",message = e.message)
-        }
-        return ResponseData(form)
+        val user = userRepository.findOne(form.id)?: return ResponseData<Objects>(status = "Update Failed",message = "ID Not Found")
+
+        user.role = roleRepository.findByNama(form.role)
+        userRepository.save(user)
+
+        return ResponseData(user)
     }
 
     //    override fun uploadAvatar(request: HttpServletRequest, id: String?=null, photo: MultipartFile): UploadPhotoData {
@@ -184,22 +167,11 @@ class UserServiceImpl (private val userRepository: UserRepository,
 //        return uploadPhotoData
 //    }
 
-    override fun changeAndroidDevice(form: ChangeAndroidDeviceForm) : ResponseData<*>{
-        try {
-            val user = userRepository.findOne(form.id)
-            user.androidDeviceId = form.androidDeviceId
-            userRepository.save(user)
-        } catch (e: Exception) {
-            return ResponseData<Objects>(status = "Update Failed",message = e.message)
-        }
-        return ResponseData(form)
-    }
-
     override fun delete(id: String): ResponseData<*> {
-        try {
-            return ResponseData(userRepository.delete(id))
-        } catch (e: Exception) {
-            return ResponseData<Objects>(status = "Update Failed",message = e.message)
-        }
+        val user = userRepository.findOne(id)?: return ResponseData<Objects>(status = "Update Failed",message = "ID Not Found")
+
+        userRepository.delete(id)
+
+        return ResponseData(user)
     }
 }
