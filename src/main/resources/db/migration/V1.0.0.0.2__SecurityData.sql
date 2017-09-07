@@ -11,11 +11,11 @@ values ('3', 'CREDENTIAL_USER', 'Credential User');
 insert into user (id_user, enabled, id_role, email, username, password)
 values ('1', '1', '1', 'admin@mail.com', 'admin','$2a$04$v1UZ4q0SCMTX695Wyowu/eVW9pT3giQivAElwH0A9BuvXktpd/qTq');
 
-insert into user (id_user, enabled, id_role, username, email, password)
-values ('1', '1', '2', 'user@mail.com', 'user','$2a$04$v1UZ4q0SCMTX695Wyowu/eVW9pT3giQivAElwH0A9BuvXktpd/qTq');
+insert into user (id_user, enabled, id_role, email, username, password)
+values ('2', '1', '2', 'user@mail.com', 'user','$2a$04$v1UZ4q0SCMTX695Wyowu/eVW9pT3giQivAElwH0A9BuvXktpd/qTq');
 
-insert into user (id_user, enabled, id_role, username, email, password)
-values ('1', '1', '3', 'credential@mail.com', 'credential','$2a$04$v1UZ4q0SCMTX695Wyowu/eVW9pT3giQivAElwH0A9BuvXktpd/qTq');
+insert into user (id_user, enabled, id_role, email, username, password)
+values ('3', '1', '3', 'credential@mail.com', 'credential','$2a$04$v1UZ4q0SCMTX695Wyowu/eVW9pT3giQivAElwH0A9BuvXktpd/qTq');
 
 
 insert into permission (id_permission, nama_permission, label_permission, id_role)
