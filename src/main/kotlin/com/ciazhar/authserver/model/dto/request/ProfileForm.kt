@@ -9,30 +9,30 @@ import javax.validation.constraints.NotNull
 class ProfileForm (
 
         @field:NotNull
-        var id: String,
+        var id: String?=null,
 
         @field:NotNull
-        var username: String,
+        var username: String?=null,
 
         @field:NotNull
-        var email: String,
+        var email: String?=null,
 
         @field:NotNull
-        var password: String,
+        var password: String?=null,
 
         @field:NotNull
-        var firstName: String,
+        var firstName: String?=null,
 
         @field:NotNull
-        var lastName: String,
+        var lastName: String?=null,
 
         @field:NotNull
-        var dateOfBirth: Date,
+        var dateOfBirth: Date?=null,
 
         @field:NotNull
-        var phoneNumber: String,
+        var phoneNumber: String?=null,
 
         @field:NotNull
-        var avatar: String
+        var avatar: String?=null
 
 )
