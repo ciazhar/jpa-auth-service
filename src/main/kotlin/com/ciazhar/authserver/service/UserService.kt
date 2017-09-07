@@ -6,6 +6,7 @@ import com.ciazhar.authserver.model.dto.response.UploadPhotoData
 import com.ciazhar.authserver.model.dto.response.UserData
 import com.ciazhar.authserver.model.exception.AlreadyInUseException
 import com.ciazhar.authserver.model.exception.AuthException
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.Authentication
 import org.springframework.ui.Model
 import org.springframework.web.multipart.MultipartFile
@@ -44,8 +45,6 @@ interface UserService {
     fun changeRole(form: ChangeRoleForm) : ResponseData<*>
 
 //    fun uploadAvatar(request: HttpServletRequest, id: String, photo: MultipartFile): UploadPhotoData
-
-    fun changeAndroidDevice(form: ChangeAndroidDeviceForm) : ResponseData<*>
 
     fun delete(id : String) : ResponseData<*>
 }
