@@ -4,10 +4,10 @@ import javax.validation.constraints.NotNull
 
 class ChangeUsernameForm (
 
-        @field:NotNull
+//        @field:NotNull
         var id: String? = null,
 
-        @field:NotNull
+//        @field:NotNull
         var username: String? = null
 
 )
