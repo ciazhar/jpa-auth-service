@@ -11,6 +11,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.NestedConfigurationProperty
 import org.springframework.boot.web.servlet.FilterRegistrationBean
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
@@ -37,6 +38,7 @@ import java.util.ArrayList
  */
 @EnableOAuth2Client
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@Configuration
 @EnableWebSecurity(debug = true)
 class SecurityConfig : WebSecurityConfigurerAdapter() {
     /**
@@ -151,6 +153,8 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
                 .antMatchers("/css/**", "/js/**").permitAll()
                 .antMatchers("/api/user/register").permitAll()
                 .antMatchers("/mobile/user/register").permitAll()
+                .antMatchers("/mobile/user/update").anonymous()
+                .antMatchers("/mobile/user/change-**").anonymous()
                 .antMatchers("/activate**").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -200,7 +204,7 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
         private val SQL_PERMISSION =
                 "select u.username as username, p.nama_permission as authority " +
                         "from user u , permission p " +
-                        "where u.username = ?"
+                        "where p.id_role=u.id_role and u.username = ? "
 
         private val SQL_ROLE =
                 "select r.id_role, r.nama_role, p.nama_permission " +
