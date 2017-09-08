@@ -1,5 +1,6 @@
 package com.ciazhar.authserver.controllers
 
+import com.ciazhar.authserver.model.dto.request.PermissionForm
 import com.ciazhar.authserver.model.dto.response.DefaultResponse
 import com.ciazhar.authserver.model.dto.response.ResponseData
 import com.ciazhar.authserver.model.jpa.Permission
@@ -20,12 +21,12 @@ import javax.validation.Valid
  * Service yang menyediakan API permission
  */
 @RestController
-@RequestMapping("{api/permission,mobile/permission}")
+@RequestMapping("api/permission","mobile/permission")
 class PermissionController (val service : PermissionService){
 
     @PreAuthorize("hasAuthority('SUPER_USER')")
     @PostMapping("/save")
-    fun save(@Valid @RequestBody permission: Permission): ResponseData<*> {
+    fun save(@Valid @RequestBody permission: PermissionForm): ResponseData<*> {
         return service.save(permission)
     }
 

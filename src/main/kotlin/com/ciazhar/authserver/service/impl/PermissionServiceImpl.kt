@@ -1,19 +1,31 @@
 package com.ciazhar.authserver.service.impl
 
 import com.ciazhar.authserver.config.string.ErrorMessage
+import com.ciazhar.authserver.model.dto.request.PermissionForm
 import com.ciazhar.authserver.model.dto.response.ResponseData
 import com.ciazhar.authserver.model.jpa.Permission
+import com.ciazhar.authserver.model.jpa.User
 import com.ciazhar.authserver.repository.PermissionRepository
+import com.ciazhar.authserver.repository.RoleRepository
 import com.ciazhar.authserver.service.PermissionService
 import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class PermissionServiceImpl (private val permissionRepository: PermissionRepository): PermissionService {
-    override fun save(permission: Permission): ResponseData<*> {
-        if(permission.id!=null&&permissionRepository.findOne(permission.id)==null){
+class PermissionServiceImpl (private val permissionRepository: PermissionRepository,
+                             private val roleRepository: RoleRepository
+                             ): PermissionService {
+    override fun save(form: PermissionForm): ResponseData<*> {
+        if(form.id!=null&&permissionRepository.findOne(form.id)==null){
             return ResponseData<Objects>(status = "Update Failed",message = "ID Not Found")
         }
+        val role = roleRepository.findOne(form.id_role)
+        val permission = Permission(id = form.id,
+                        id_role = role,
+                        nama = form.nama,
+                        label = form.label
+                )
+
         return ResponseData(permissionRepository.save(permission))
     }
 
