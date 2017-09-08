@@ -16,6 +16,7 @@ import com.ciazhar.authserver.service.EmailService
 import com.ciazhar.authserver.service.UploadService
 import com.ciazhar.authserver.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Pageable
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.Authentication
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -66,8 +67,8 @@ class UserServiceImpl (private val userRepository: UserRepository,
         return "/activate"
     }
 
-    override fun findAll(): ResponseData<*> {
-        return ResponseData(userRepository.findAll())
+    override fun findAll(page : Pageable): ResponseData<*> {
+        return ResponseData(userRepository.findAll(page))
     }
 
     override fun findOne(id: String): ResponseData<*> {

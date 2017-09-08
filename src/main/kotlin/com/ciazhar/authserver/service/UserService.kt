@@ -6,6 +6,7 @@ import com.ciazhar.authserver.model.dto.response.UploadPhotoData
 import com.ciazhar.authserver.model.dto.response.UserData
 import com.ciazhar.authserver.model.exception.AlreadyInUseException
 import com.ciazhar.authserver.model.exception.AuthException
+import org.springframework.data.domain.Pageable
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.Authentication
 import org.springframework.ui.Model
@@ -26,7 +27,7 @@ interface UserService {
 
     fun current(authentication : Authentication) : ResponseData<*>
 
-    fun findAll() : ResponseData<*>
+    fun findAll(page : Pageable) : ResponseData<*>
 
     fun findOne(id : String) : ResponseData<*>
 

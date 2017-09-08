@@ -4,6 +4,7 @@ import com.ciazhar.authserver.model.dto.request.*
 import com.ciazhar.authserver.model.dto.response.ResponseData
 import com.ciazhar.authserver.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Pageable
 import org.springframework.security.access.annotation.Secured
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.Authentication
@@ -34,8 +35,8 @@ class UserController @Autowired constructor(private val service: UserService){
 
     @PreAuthorize("hasAuthority('SUPER_USER')")
     @RequestMapping("/all")
-    fun findAll(): ResponseData<*> {
-        return service.findAll()
+    fun findAll(page : Pageable): ResponseData<*> {
+        return service.findAll(page)
     }
 
     @PreAuthorize("hasAuthority('SUPER_USER')")
