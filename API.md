@@ -1,7 +1,7 @@
 # Auth Server API Reference
 Selamat datang ke Auth Server API Reference. Berikut adalah tutorial untuk menggunakan Auth Server. 
 Anda juga dapat menggunakan API kami untuk mengakses endpoint di Auth Server. 
-Kami menyediakan 2 prefix yaitu `/mobile` untuk tanpa CSRF protection dan `/api` untuk dengan CSRF protection. 
+Kami menyediakan 2 prefix yaitu `/mobile` untuk tanpa CSRF protection dan `/api` untuk dengan CSRF protection. Kami menyarankan menggunakan `/mobile` saat testing. 
 
 Method	| Path	| Description	| Permission	
 ------------- | ------------------------- | ------------- |:-------------:
@@ -30,6 +30,17 @@ POST	| /{PREFIX}/permission/create	| Create permission	| Super User
 GET	    | /{PREFIX}/permission/single?id= | Find single permission by id	|   Super User
 GET	    | /{PREFIX}/permission/all	| Find all permission|   Super User
 POST	| /{PREFIX}/permission/delete	| Delete permission	|   Super User
+POST	| /{PREFIX}/client/save	| Create Client	|   Not Available
+GET	    | /{PREFIX}/client/all	| Find All Client	|   Not Available
+GET 	| /{PREFIX}/client/one?id=	| Find One Client	|   Not Available
+POST	| /{PREFIX}/client/delete?id=	| Delete Client	|   Not Available
+
+Keterangan : 
+- Login         : otorisasi melalui login html.
+- Permit All    : semua pihak dapat mengakses.
+- Super User    : hanya pihak dengan super user. 
+- Anonymous     : otorisasi menggunakan akses token.
+- Not available : layanan tidak tersedia.
 
 
 ## Register Akun
@@ -788,12 +799,12 @@ curl -d '{
 }
 ```
 
-## Find ALl Permission
+## Find All Permission
 ### Contoh Request
 ```
 curl -H "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MDQ4MjY2MzMsInVzZXJfbmFtZSI6ImFkbWluIiwiYXV0aG9yaXRpZXMiOlsiU1VQRVJfVVNFUiJdLCJqdGkiOiI5MGEzMzNhMy03ZDczLTRiMWMtOTUzZi1kZTdkMTQ1NWJiMGYiLCJjbGllbnRfaWQiOiJ3ZWIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.HIMH38EnRCqBFXRLpr4z2nPh1uIlIjUcb-AnsmOTfbNcX5IyV16w5LzYJCNbo7l6HUYMXDSmpICYfuCUnp74KbPS-jYfIfjwiMeDZgFOF74ORyiTTCDxbLgNlFThT4Kaa1A-8l68SasLr7h_PPZiueU1u3VYCsrtL1tempbOMak4vMCx44KNGBeT5c6zLrxfWBN2U1Ii5dn_14EFKFHYZgMeE9039wPfolA0aKpM7Zxjo6nkUTpb2OJoMU97Dp6t7hRWKb8k0Vy8C4OLPTpc6DQ6T72MX07rGYJX3c147DNVot5jGgtPEAX5HCERMaZ2yi5aXkWs-rZXb5NYfBJa4A" \
 -X GET http://localhost:8080/mobile/permission/all;
-``
+```
 ### Contoh Response
 ```
 {
