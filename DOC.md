@@ -1,19 +1,28 @@
-# Spring Security
+# Flow Spring Security
+Ketika user ingin melakukan login, user dapat melakukan request ke `/login`. Kemudian user akan dihadapkan dengan form login. Data yang dikirim dari form tersebut berupa username, password dan CSRF token. Data tersebut adalah default dan dapat diganti, semisal username diganti email. Apabila login berhasil, user akan mendapatkan session bernama `AUTHSERVER` dan `JSESSIONID`. Session ini yang menandakan bahwa user tersebut telah authenticated. Apabila request gagal maka akan redirect ke `/login?error` dan meminta user untuk mengisi kembali form login.  
 
-# OAuth 2
-Selanjutnya proses dibawah ini akan berjalan di system, tetapi apabila ingin melihat prosesnya dapat mengikut langkah berikut :
-- Gunakan url berikut 
-```
-http://localhost:8080/oauth/authorize?client_id=nama-service&response_type=code&redirect_uri=http://example.com
-```
-client-id disesuaikan nama client id yang anda cantumkan pada `src/main/java/com/ciazhar/authserver/config/security/OAuth2Config`.
-- Masukkan username admin dan password 123. Daftar user dapat dilihat di data dummy sql tadi. 
-- Kemudian anda akan mendapatkan code. Gunakakan code tersebut dengan menggunakan `curl`
-```
-curl -X POST -vu nama-service:123456 http://localhost:8080/oauth/token -H "Accept: application/json" -d "grant_type=authorization_code&code=v2SWjN&redirect_uri=http://example.com"
-```
-client-id disesuaikan nama client id yang anda cantumkan pada `src/main/java/com/ciazhar/authserver/config/security/OAuth2Config`. code disesuaikan dengan code yang anda dapat tadi.
-- Kemudian anda akan mendapatkan `acces_token`. Gunakan access token tersebut untuk setiap request ke backend anda. Apabila anda ingin melihat enkripsi dari access token tersebut anda dapat mengunjungi website `jwt.io`.
 
-# JWT Filter
-Kunci dari jwt filter adalah memfilter request dari user terhadap API tertentu menggunakan hak akses. Hak akses dapat dilihat dari mendekrip JWT token yang dikirim user saat mengakses API. Di Spring Boot sendiri API dapat di filter menggunakan anotasi @PreAuthorize yang diletakkan di atas methode API.
+
+# Flow OAuth 2 
+OAuth2 memiliki beberapa Grant Type. Grant type merupakan metode yang digunakan untuk mendapatkan akses token. Akses token tersebut yang akan digunakan untuk mengkses API. Grant type tersebut diantaranya yaitu :
+- Authorization Code
+- Implicit
+- Password
+- Client Credentials
+
+### Authorization Code
+Grant type ini disarankan apabila client berupa backend. Dimana backend dapat menyimpan secret. 
+
+### Implicit
+Grant type ini disarankan apabila client merupakan frontend third party atau untrusted client. Yang dimaksud untrusted client adalah client yang berasal dari vendor yang berbeda, dimana belum dapat dipercaya sepenuhnya.
+
+### Password
+Grant type ini disarankan apabila client merupakan frontend first party atau trusted client.
+
+### Client Credentials
+Grant type ini disarankan apabila client berupa mesin. Dimana client tidak memerlukan otorisasi sebagai user tertentu.  
+
+
+
+# JWT (JSON WEB TOKEN)
+JWT merupakan jenis akses token yang akan digunakan untuk merequest API. API sebelumnya telah difilter menggunakan menggunakan JWT Filter. Filter dapat berupa hak akses seperti Role, Permission, IP address dll. Hak akses dapat dilihat dari mendekrip JWT token yang dikirim user saat mengakses API, atau melalui [Official JWT](https://jwt.io). 
