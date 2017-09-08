@@ -1,6 +1,6 @@
 # Authorization Server
 Authorization Server adalah backend server yang digunakan untuk otorisasi dan databse user.
-Silahkan baca [API Reference]() dan [Dokumentasi]() yang tersedia. 
+Silahkan baca [API Reference](https://github.com/ciazhar/auth-server/blob/master/API.md) dan [Dokumentasi](https://github.com/ciazhar/auth-server/blob/master/DOC.md) yang tersedia. 
 
 ## Stack 
 - Spring Boot
