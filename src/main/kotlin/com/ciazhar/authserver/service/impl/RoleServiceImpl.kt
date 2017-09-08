@@ -11,34 +11,27 @@ import java.util.*
 @Service
 class RoleServiceImpl (private val roleRepository: RoleRepository): RoleService {
     override fun save(role: Role): ResponseData<*> {
-        try {
-            return ResponseData(roleRepository.save(role))
-        } catch (e: Exception) {
-            return ResponseData<Objects>(status = ErrorMessage.ERROR,message = e.message)
+        if(role.id!=null&&roleRepository.findOne(role.id)==null){
+            return ResponseData<Objects>(status = "Update Failed",message = "ID Not Found")
         }
+        return ResponseData(roleRepository.save(role))
     }
 
     override fun findAll(): ResponseData<*> {
-        try {
-            return ResponseData(roleRepository.findAll())
-        } catch (e: Exception) {
-            return ResponseData<Objects>(status = ErrorMessage.ERROR,message = e.message)
-        }
+        return ResponseData(roleRepository.findAll())
     }
 
     override fun findOne(id: String): ResponseData<*> {
-        try {
-            return ResponseData(roleRepository.findOne(id))
-        } catch (e: Exception) {
-            return ResponseData<Objects>(status = ErrorMessage.ERROR,message = e.message)
-        }
+        val role = roleRepository.findOne(id)?: return ResponseData<Objects>(status = "Update Failed",message = "ID Not Found")
+
+        return ResponseData(role)
     }
 
     override fun delete(id: String): ResponseData<*> {
-        try {
-            return ResponseData(roleRepository.delete(id))
-        } catch (e: Exception) {
-            return ResponseData<Objects>(status = ErrorMessage.ERROR,message = e.message)
-        }
+        val role = roleRepository.findOne(id)?: return ResponseData<Objects>(status = "Update Failed",message = "ID Not Found")
+
+        roleRepository.delete(id)
+
+        return ResponseData(role)
     }
 }
