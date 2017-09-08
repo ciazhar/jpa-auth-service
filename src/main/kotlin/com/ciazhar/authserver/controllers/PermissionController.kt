@@ -43,7 +43,7 @@ class PermissionController (val service : PermissionService){
 
     @PreAuthorize("hasAuthority('SUPER_USER')")
     @PostMapping("/delete")
-    fun deletePermission(@RequestBody id: String): ResponseData<*> {
+    fun deletePermission(@RequestParam id: String): ResponseData<*> {
         return service.delete(id)
     }
 
