@@ -1,0 +1,9 @@
+---
+applications:
+- name: ciazhar-auth-server
+  path: target/auth-server-0.0.1-SNAPSHOT.jar
+  domain: cfapps.io
+  memory: 800m
+  instance: 1
+  services:
+  - mysql-db
