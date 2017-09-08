@@ -583,103 +583,296 @@ curl \
 ## Create Role
 ### Contoh Request
 ```
-curl -d "nama={VALUE}&label={VALUE}" 
--X POST http://{DOMAIN}/{PREFIX}/role/save?access_token={VALUE};
+curl -d '{
+    "nama":"baruaaa",
+    "label":"baru banget"
+ }'\
+-H "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MDQ4MjY2MzMsInVzZXJfbmFtZSI6ImFkbWluIiwiYXV0aG9yaXRpZXMiOlsiU1VQRVJfVVNFUiJdLCJqdGkiOiI5MGEzMzNhMy03ZDczLTRiMWMtOTUzZi1kZTdkMTQ1NWJiMGYiLCJjbGllbnRfaWQiOiJ3ZWIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.HIMH38EnRCqBFXRLpr4z2nPh1uIlIjUcb-AnsmOTfbNcX5IyV16w5LzYJCNbo7l6HUYMXDSmpICYfuCUnp74KbPS-jYfIfjwiMeDZgFOF74ORyiTTCDxbLgNlFThT4Kaa1A-8l68SasLr7h_PPZiueU1u3VYCsrtL1tempbOMak4vMCx44KNGBeT5c6zLrxfWBN2U1Ii5dn_14EFKFHYZgMeE9039wPfolA0aKpM7Zxjo6nkUTpb2OJoMU97Dp6t7hRWKb8k0Vy8C4OLPTpc6DQ6T72MX07rGYJX3c147DNVot5jGgtPEAX5HCERMaZ2yi5aXkWs-rZXb5NYfBJa4A" \
+-H "Content-Type: application/json" \
+-X POST http://localhost:8080/mobile/role/save;
 ```
 ### Contoh Response
 ```
-
+{
+  "status" : "success",
+  "message" : "Successfully updated your request.",
+  "data" : {
+    "id" : "79e8a7a5-71b1-4e39-a6c1-b78384a64f86",
+    "nama" : "baru",
+    "label" : "baru banget"
+  }
+}
 ```
 
 ## Update Role
 ### Contoh Request
 ```
-curl -d "id={VALUE}&nama={VALUE}&label={VALUE}" 
--X POST http://{DOMAIN}/{PREFIX}/role/save?access_token={VALUE};
+curl -d '{
+    "id":"79e8a7a5-71b1-4e39-a6c1-b78384a64f86",
+    "nama":"baru",
+    "label":"baru pake banget"
+ }'\
+-H "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MDQ4MjY2MzMsInVzZXJfbmFtZSI6ImFkbWluIiwiYXV0aG9yaXRpZXMiOlsiU1VQRVJfVVNFUiJdLCJqdGkiOiI5MGEzMzNhMy03ZDczLTRiMWMtOTUzZi1kZTdkMTQ1NWJiMGYiLCJjbGllbnRfaWQiOiJ3ZWIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.HIMH38EnRCqBFXRLpr4z2nPh1uIlIjUcb-AnsmOTfbNcX5IyV16w5LzYJCNbo7l6HUYMXDSmpICYfuCUnp74KbPS-jYfIfjwiMeDZgFOF74ORyiTTCDxbLgNlFThT4Kaa1A-8l68SasLr7h_PPZiueU1u3VYCsrtL1tempbOMak4vMCx44KNGBeT5c6zLrxfWBN2U1Ii5dn_14EFKFHYZgMeE9039wPfolA0aKpM7Zxjo6nkUTpb2OJoMU97Dp6t7hRWKb8k0Vy8C4OLPTpc6DQ6T72MX07rGYJX3c147DNVot5jGgtPEAX5HCERMaZ2yi5aXkWs-rZXb5NYfBJa4A" \
+-H "Content-Type: application/json" \
+-X POST http://localhost:8080/mobile/role/save;
 ```
 ### Contoh Response
 ```
-
+{
+  "status" : "success",
+  "message" : "Successfully updated your request.",
+  "data" : {
+    "id" : "79e8a7a5-71b1-4e39-a6c1-b78384a64f86",
+    "nama" : "baru",
+    "label" : "baru pake banget"
+  }
+}
 ```
 
 ## Find ALl Role
 ### Contoh Request
 ```
-curl -X GET http://{DOMAIN}/{PREFIX}/role/all?access_token={VALUE};
+curl -H "Authorization: Bearer token" \
+-X GET http://localhost:8080/mobile/role/all;
 ```
 ### Contoh Response
 ```
-
+{
+  "status" : "success",
+  "message" : "Successfully updated your request.",
+  "data" : [ {
+    "id" : "1",
+    "nama" : "ADMIN",
+    "label" : "Admin"
+  }, {
+    "id" : "79e8a7a5-71b1-4e39-a6c1-b78384a64f86",
+    "nama" : "baru",
+    "label" : "baru pake banget"
+  }, {
+    "id" : "2",
+    "nama" : "BASIC_USER",
+    "label" : "Basic User"
+  }, {
+    "id" : "3",
+    "nama" : "CREDENTIAL_USER",
+    "label" : "Credential User"
+  } ]
+}
 ```
 
 ## Find One Role
 ### Contoh Request
 ```
-curl -X GET http://{DOMAIN}/{PREFIX}/role/one?id={VALUE}&?access_token={VALUE};
+curl -H "Authorization: Bearer token" \
+-X GET http://localhost:8080/mobile/role/one?id=1;
 ```
 ### Contoh Response
 ```
-
+{
+  "status" : "success",
+  "message" : "Successfully updated your request.",
+  "data" : {
+    "id" : "1",
+    "nama" : "ADMIN",
+    "label" : "Admin"
+  }
+}
 ```
 
 ## Delete Role
 ### Contoh Request
 ```
-curl -X POST http://{DOMAIN}/{PREFIX}/role/delete?id={VALUE}&?access_token={VALUE};
+curl -H "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MDQ4ODQ5NTAsInVzZXJfbmFtZSI6ImFkbWluIiwiYXV0aG9yaXRpZXMiOlsiU1VQRVJfVVNFUiJdLCJqdGkiOiJjZWJiYzg2NC0yMzc4LTQ3MTctYTlhMS1hMDU4NTNhMDk4OTAiLCJjbGllbnRfaWQiOiJ3ZWIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.d4NCf3rJTcYuZCORQIa46uG7K9My6a4Q_4Q-aNk-zVMrU8d4LlL8gkoI9Yy5gO3Ipre9KzvF5dCIcF9D-miUDoZdVrOKPgfJj7KDAQMduDzcqksi7K7_BQXiZ_BeRLpAsC9ne-16VxwaiBjn6H3YHg-RtwfjmmdmNlkO7OwWpjtwRRP5RxqxUf5CaCQb9vjx7EpyYqlhedqFl7qCROqFqepkf6iROkDXtaXTwD0SHNEBiUdubS8WfGHReYVAIz4S-IWGvgxrCbBdyws7Ndtd_sbrm7_YW86gI-obWjFOcbb1dm97na8HsZ8Sc-oqVZK0VZxtZRV1v3RHMX5-_CayiA" \
+-X POST http://localhost:8080/mobile/role/delete?id=f6ac1b80-b428-42df-b813-90326f4e18b4;
 ```
 ### Contoh Response
 ```
-
+{
+  "status" : "success",
+  "message" : "Successfully updated your request.",
+  "data" : {
+    "id" : "79e8a7a5-71b1-4e39-a6c1-b78384a64f86",
+    "nama" : "baru",
+    "label" : "baru pake banget"
+  }
+}
 ```
 
 ## Create Permission
 ### Contoh Request
 ```
-curl -d "nama={VALUE}&label={VALUE}" 
--X POST http://{DOMAIN}/{PREFIX}/permission/save?access_token={VALUE};
+curl -d '{
+    "nama":"baru",
+    "id_role":"2",
+    "label":"baru banget"
+ }'\
+-H "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MDQ4MjY2MzMsInVzZXJfbmFtZSI6ImFkbWluIiwiYXV0aG9yaXRpZXMiOlsiU1VQRVJfVVNFUiJdLCJqdGkiOiI5MGEzMzNhMy03ZDczLTRiMWMtOTUzZi1kZTdkMTQ1NWJiMGYiLCJjbGllbnRfaWQiOiJ3ZWIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.HIMH38EnRCqBFXRLpr4z2nPh1uIlIjUcb-AnsmOTfbNcX5IyV16w5LzYJCNbo7l6HUYMXDSmpICYfuCUnp74KbPS-jYfIfjwiMeDZgFOF74ORyiTTCDxbLgNlFThT4Kaa1A-8l68SasLr7h_PPZiueU1u3VYCsrtL1tempbOMak4vMCx44KNGBeT5c6zLrxfWBN2U1Ii5dn_14EFKFHYZgMeE9039wPfolA0aKpM7Zxjo6nkUTpb2OJoMU97Dp6t7hRWKb8k0Vy8C4OLPTpc6DQ6T72MX07rGYJX3c147DNVot5jGgtPEAX5HCERMaZ2yi5aXkWs-rZXb5NYfBJa4A" \
+-H "Content-Type: application/json" \
+-X POST http://localhost:8080/mobile/permission/save;
 ```
 ### Contoh Response
 ```
-
+{
+  "status" : "success",
+  "message" : "Successfully updated your request.",
+  "data" : {
+    "id" : "348e405a-d822-45ca-8b83-75d9147c41a9",
+    "id_role" : {
+      "id" : "2",
+      "nama" : "BASIC_USER",
+      "label" : "Basic User"
+    },
+    "nama" : "baru",
+    "label" : "baru banget"
+  }
+}
 ```
 
 ## Update Permission
 ### Contoh Request
 ```
-curl -d "id={VALUE}&nama={VALUE}&label={VALUE}" 
--X POST http://{DOMAIN}/{PREFIX}/permission/save?access_token={VALUE};
+curl -d '{
+    "id":"876adb81-d0e8-45e5-ac28-2cfb9ea02634",
+    "id_role":"2",
+    "nama":"baru aja",
+    "label":"baru pake banget"
+ }'\
+-H "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MDQ4MjY2MzMsInVzZXJfbmFtZSI6ImFkbWluIiwiYXV0aG9yaXRpZXMiOlsiU1VQRVJfVVNFUiJdLCJqdGkiOiI5MGEzMzNhMy03ZDczLTRiMWMtOTUzZi1kZTdkMTQ1NWJiMGYiLCJjbGllbnRfaWQiOiJ3ZWIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.HIMH38EnRCqBFXRLpr4z2nPh1uIlIjUcb-AnsmOTfbNcX5IyV16w5LzYJCNbo7l6HUYMXDSmpICYfuCUnp74KbPS-jYfIfjwiMeDZgFOF74ORyiTTCDxbLgNlFThT4Kaa1A-8l68SasLr7h_PPZiueU1u3VYCsrtL1tempbOMak4vMCx44KNGBeT5c6zLrxfWBN2U1Ii5dn_14EFKFHYZgMeE9039wPfolA0aKpM7Zxjo6nkUTpb2OJoMU97Dp6t7hRWKb8k0Vy8C4OLPTpc6DQ6T72MX07rGYJX3c147DNVot5jGgtPEAX5HCERMaZ2yi5aXkWs-rZXb5NYfBJa4A" \
+-H "Content-Type: application/json" \
+-X POST http://localhost:8080/mobile/permission/save;
 ```
 ### Contoh Response
 ```
-
+{
+  "status" : "success",
+  "message" : "Successfully updated your request.",
+  "data" : {
+    "id" : "876adb81-d0e8-45e5-ac28-2cfb9ea02634",
+    "id_role" : {
+      "id" : "2",
+      "nama" : "BASIC_USER",
+      "label" : "Basic User"
+    },
+    "nama" : "baru aja",
+    "label" : "baru pake banget"
+  }
+}
 ```
 
 ## Find ALl Permission
 ### Contoh Request
 ```
-curl -X GET http://{DOMAIN}/{PREFIX}/permission/all?access_token={VALUE};
-```
+curl -H "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MDQ4MjY2MzMsInVzZXJfbmFtZSI6ImFkbWluIiwiYXV0aG9yaXRpZXMiOlsiU1VQRVJfVVNFUiJdLCJqdGkiOiI5MGEzMzNhMy03ZDczLTRiMWMtOTUzZi1kZTdkMTQ1NWJiMGYiLCJjbGllbnRfaWQiOiJ3ZWIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.HIMH38EnRCqBFXRLpr4z2nPh1uIlIjUcb-AnsmOTfbNcX5IyV16w5LzYJCNbo7l6HUYMXDSmpICYfuCUnp74KbPS-jYfIfjwiMeDZgFOF74ORyiTTCDxbLgNlFThT4Kaa1A-8l68SasLr7h_PPZiueU1u3VYCsrtL1tempbOMak4vMCx44KNGBeT5c6zLrxfWBN2U1Ii5dn_14EFKFHYZgMeE9039wPfolA0aKpM7Zxjo6nkUTpb2OJoMU97Dp6t7hRWKb8k0Vy8C4OLPTpc6DQ6T72MX07rGYJX3c147DNVot5jGgtPEAX5HCERMaZ2yi5aXkWs-rZXb5NYfBJa4A" \
+-X GET http://localhost:8080/mobile/permission/all;
+``
 ### Contoh Response
 ```
-
+{
+  "status" : "success",
+  "message" : "Successfully updated your request.",
+  "data" : [ {
+    "id" : "1",
+    "id_role" : {
+      "id" : "1",
+      "nama" : "ADMIN",
+      "label" : "Admin"
+    },
+    "nama" : "SUPER_USER",
+    "label" : "Khusus untuk admin"
+  }, {
+    "id" : "2",
+    "id_role" : {
+      "id" : "2",
+      "nama" : "BASIC_USER",
+      "label" : "Basic User"
+    },
+    "nama" : "BASIC_USER",
+    "label" : "User biasa"
+  }, {
+    "id" : "3",
+    "id_role" : {
+      "id" : "2",
+      "nama" : "BASIC_USER",
+      "label" : "Basic User"
+    },
+    "nama" : "CREDENTIAL_USER",
+    "label" : "User gak biasa"
+  }, {
+    "id" : "4",
+    "id_role" : {
+      "id" : "3",
+      "nama" : "CREDENTIAL_USER",
+      "label" : "Credential User"
+    },
+    "nama" : "CREDENTIAL_USER",
+    "label" : "User gak biasa"
+  }, {
+    "id" : "876adb81-d0e8-45e5-ac28-2cfb9ea02634",
+    "id_role" : {
+      "id" : "2",
+      "nama" : "BASIC_USER",
+      "label" : "Basic User"
+    },
+    "nama" : "baru aja",
+    "label" : "baru pake banget"
+  }, {
+    "id" : "348e405a-d822-45ca-8b83-75d9147c41a9",
+    "id_role" : {
+      "id" : "2",
+      "nama" : "BASIC_USER",
+      "label" : "Basic User"
+    },
+    "nama" : "baru",
+    "label" : "baru banget"
+  } ]
+}
 ```
 
 ## Find One Permission
 ### Contoh Request
 ```
-curl -X GET http://{DOMAIN}/{PREFIX}/permission/one?id={VALUE}&?access_token={VALUE};
+curl -H "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MDQ4MjY2MzMsInVzZXJfbmFtZSI6ImFkbWluIiwiYXV0aG9yaXRpZXMiOlsiU1VQRVJfVVNFUiJdLCJqdGkiOiI5MGEzMzNhMy03ZDczLTRiMWMtOTUzZi1kZTdkMTQ1NWJiMGYiLCJjbGllbnRfaWQiOiJ3ZWIiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.HIMH38EnRCqBFXRLpr4z2nPh1uIlIjUcb-AnsmOTfbNcX5IyV16w5LzYJCNbo7l6HUYMXDSmpICYfuCUnp74KbPS-jYfIfjwiMeDZgFOF74ORyiTTCDxbLgNlFThT4Kaa1A-8l68SasLr7h_PPZiueU1u3VYCsrtL1tempbOMak4vMCx44KNGBeT5c6zLrxfWBN2U1Ii5dn_14EFKFHYZgMeE9039wPfolA0aKpM7Zxjo6nkUTpb2OJoMU97Dp6t7hRWKb8k0Vy8C4OLPTpc6DQ6T72MX07rGYJX3c147DNVot5jGgtPEAX5HCERMaZ2yi5aXkWs-rZXb5NYfBJa4A" \
+-X GET http://localhost:8080/mobile/permission/one?id=1;
 ```
 ### Contoh Response
 ```
-
+{
+  "status" : "success",
+  "message" : "Successfully updated your request.",
+  "data" : {
+    "id" : "1",
+    "id_role" : {
+      "id" : "1",
+      "nama" : "ADMIN",
+      "label" : "Admin"
+    },
+    "nama" : "SUPER_USER",
+    "label" : "Khusus untuk admin"
+  }
+}
 ```
 
 ## Delete Permission
 ### Contoh Request
 ```
-curl -X POST http://{DOMAIN}/{PREFIX}/permission/delete?id={VALUE}&?access_token={VALUE};
+curl -H "Authorization: Bearer token" \
+-X POST http://localhost:8080/mobile/permission/delete?id=876adb81-d0e8-45e5-ac28-2cfb9ea02634;
+
 ```
 ### Contoh Response
 ```
-
+{
+  "status" : "success",
+  "message" : "Successfully updated your request.",
+  "data" : {
+    "id" : "876adb81-d0e8-45e5-ac28-2cfb9ea02634",
+    "id_role" : {
+      "id" : "2",
+      "nama" : "BASIC_USER",
+      "label" : "Basic User"
+    },
+    "nama" : "baru aja",
+    "label" : "baru pake banget"
+  }
+}
 ```
