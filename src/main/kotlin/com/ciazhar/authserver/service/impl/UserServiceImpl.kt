@@ -1,32 +1,20 @@
 package com.ciazhar.authserver.service.impl
 
-import com.ciazhar.authserver.config.string.ErrorMessage
 import com.ciazhar.authserver.model.dto.request.*
 import com.ciazhar.authserver.model.dto.response.ResponseData
-import com.ciazhar.authserver.model.dto.response.UploadPhotoData
-import com.ciazhar.authserver.model.dto.response.UserData
-import com.ciazhar.authserver.model.jpa.Photo
 import com.ciazhar.authserver.model.jpa.User
-import com.ciazhar.authserver.model.exception.AlreadyInUseException
-import com.ciazhar.authserver.model.exception.AuthException
 import com.ciazhar.authserver.repository.PhotoRepository
 import com.ciazhar.authserver.repository.RoleRepository
 import com.ciazhar.authserver.repository.UserRepository
 import com.ciazhar.authserver.service.EmailService
 import com.ciazhar.authserver.service.UploadService
 import com.ciazhar.authserver.service.UserService
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Pageable
-import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.Authentication
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 import org.springframework.ui.Model
-import org.springframework.web.multipart.MultipartFile
 import java.util.*
-
-import javax.servlet.http.HttpServletRequest
 
 /**
  * Created by ciazhar on 6/21/17.
@@ -143,7 +131,7 @@ class UserServiceImpl (private val userRepository: UserRepository,
     override fun changeRole(form: ChangeRoleForm) : ResponseData<*>{
         val user = userRepository.findOne(form.id)?: return ResponseData<Objects>(status = "Update Failed",message = "ID Not Found")
 
-        user.role = roleRepository.findByNama(form.role)
+        user.role = roleRepository.findOne(form.role)?: return ResponseData<Objects>(status = "Update Failed",message = "Role Not Found")
         userRepository.save(user)
 
         return ResponseData(user)
