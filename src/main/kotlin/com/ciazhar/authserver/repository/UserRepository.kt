@@ -12,4 +12,5 @@ import org.springframework.data.repository.PagingAndSortingRepository
  */
 interface UserRepository : PagingAndSortingRepository<User, String> {
     fun findByEmail(email: String): User
+    fun findByUsername(username: String?): User
 }
