@@ -10,8 +10,8 @@ import javax.validation.constraints.NotNull
 class ChangeRoleForm (
 
         @field:NotNull
-        var id: String,
+        var id: String?=null,
 
         @field:NotNull
-        var role: String
+        var role: String?=null
 )
