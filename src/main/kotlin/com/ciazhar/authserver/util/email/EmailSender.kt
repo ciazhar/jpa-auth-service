@@ -11,9 +11,7 @@ import javax.mail.internet.MimeMessage
 
 
 @Component("mail-component")
-class EmailSender {
-    @Autowired
-    internal var javaMailSender: JavaMailSender? = null
+class EmailSender @Autowired constructor(var javaMailSender: JavaMailSender){
 
     internal var logger = LoggerFactory.getLogger(this.javaClass)
 
@@ -27,12 +25,12 @@ class EmailSender {
 
     private fun sendM(to: String?, subject: String, text: String, isHtml: Boolean?): EmailStatus {
         try {
-            val mail = javaMailSender!!.createMimeMessage()
+            val mail = javaMailSender.createMimeMessage()
             val helper = MimeMessageHelper(mail, true)
             helper.setTo(to)
             helper.setSubject(subject)
             helper.setText(text, isHtml!!)
-            javaMailSender!!.send(mail)
+            javaMailSender.send(mail)
             logger.info("Send email '{}' to: {}", subject, to)
             return EmailStatus(to, subject, text).success()
         } catch (e: Exception) {
