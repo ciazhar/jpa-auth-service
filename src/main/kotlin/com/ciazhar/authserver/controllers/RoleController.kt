@@ -43,7 +43,7 @@ class RoleController @Autowired constructor(private val service : RoleService){
 
     @PreAuthorize("hasAuthority('SUPER_USER')")
     @PostMapping("/delete")
-    fun deleteRole(@RequestBody id: String): ResponseData<*> {
+    fun deleteRole(@RequestParam id: String): ResponseData<*> {
         return service.delete(id)
     }
 
