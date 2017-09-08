@@ -94,6 +94,10 @@ class UserServiceImpl (private val userRepository: UserRepository,
     override fun changeUsername(form: ChangeUsernameForm) : ResponseData<*>{
         val user = userRepository.findOne(form.id)?: return ResponseData<Objects>(status = "Update Failed",message = "ID Not Found")
 
+        if(userRepository.findByUsername(form.username)!=null){
+            return ResponseData<Objects>(status = "Update Failed",message = "Username already exist. Try another username")
+        }
+
         user.username = form.username
         userRepository.save(user)
 
