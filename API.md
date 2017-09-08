@@ -1,7 +1,36 @@
-# Auth Zharver Developer Guide  
-Selamat datang ke Auth Zharver Developer Guide. Berikut adalah tutorial untuk menggunakan Auth Zharver. 
-Anda juga dapat menggunakan API kami untuk mengakses endpoint di Auth Zharver. 
+# Auth Server API Reference
+Selamat datang ke Auth Server API Reference. Berikut adalah tutorial untuk menggunakan Auth Server. 
+Anda juga dapat menggunakan API kami untuk mengakses endpoint di Auth Server. 
 Kami menyediakan 2 prefix yaitu `/mobile` untuk tanpa CSRF protection dan `/api` untuk dengan CSRF protection. 
+
+Method	| Path	| Description	| Permission	
+------------- | ------------------------- | ------------- |:-------------:
+POST	| /login	| Activate Account	|  Login
+GET	    | /{PREFIX}/user	| Get user session data	| Login
+POST	| /{PREFIX}/user/register	| Register	| Permit All
+GET	    | /activate?email=	| Activate Account	|  Permit All
+GET 	| /{PREFIX}/user/single?id=	| Find single user by id	| Super User   
+GET	    | /{PREFIX}/user/all| Get all user	|  Super User
+POST	| /{PREFIX}/user/update	| Update profile	| Anonymous
+POST	| /{PREFIX}/user/change-username	| Change username	| Anonymous 
+POST	| /{PREFIX}/user/change-phone	| Change phone	|  Anonymous
+POST	| /{PREFIX}/user/change-username	| Change username	| Anonymous
+POST	| /{PREFIX}/user/change-birthdate	| Change birthdate	| Anonymous
+POST	| /{PREFIX}/user/change-password	| Change password	| Anonymous
+POST	| /{PREFIX}/user/change-email	| Change email	| Anonymous
+POST	| /{PREFIX}/user/change-role	| Change role	| Super User  
+POST	| /{PREFIX}/user/upload/avatar	| Change avatar	| Not Available
+POST	| /{PREFIX}/user/device/android?id=	| Change android device id	| Not Available  
+POST	| /{PREFIX}/user/delete	| Delete user	| Super User
+POST	| /{PREFIX}/role/create	| Create role	| Super User
+GET	    | /{PREFIX}/role/single?id= | Find single role by id	| Super User
+GET	    | /{PREFIX}/role/all	| Find all role	|   Super User
+POST	| /{PREFIX}/role/delete	| Delete role	|   Super User
+POST	| /{PREFIX}/permission/create	| Create permission	| Super User  
+GET	    | /{PREFIX}/permission/single?id= | Find single permission by id	|   Super User
+GET	    | /{PREFIX}/permission/all	| Find all permission|   Super User
+POST	| /{PREFIX}/permission/delete	| Delete permission	|   Super User
+
 
 ## Register Akun
 ### Format Request
