@@ -38,9 +38,9 @@ import java.util.ArrayList
  */
 @EnableOAuth2Client
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@Configuration
 @EnableWebSecurity(debug = true)
 class SecurityConfig : WebSecurityConfigurerAdapter() {
+
     /**
      * Datasource untuk koneksi database
      */
@@ -151,17 +151,12 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
                 .antMatcher("/**").authorizeRequests()
                 .antMatchers("/", "/login**").permitAll()
                 .antMatchers("/css/**", "/js/**").permitAll()
-                .antMatchers("/mobile/**").anonymous()
-                .antMatchers("/api/user/register").permitAll()
-                .antMatchers("/mobile/user/register").permitAll()
-                .antMatchers("/activate**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/login").defaultSuccessUrl("/api/user").permitAll()
+                .formLogin().loginPage("/login").defaultSuccessUrl("/home").permitAll()
                 .and()
                 .logout().logoutSuccessUrl("/").permitAll()
-                .and()
-                .csrf().ignoringAntMatchers("/mobile/**")
+
 //                .and()
 //                .addFilterBefore(ssoFilter(), BasicAuthenticationFilter::class.java)
 
