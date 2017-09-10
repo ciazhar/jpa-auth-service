@@ -7,6 +7,22 @@ security:
       scope: read,write
       auto-approve-scopes: '.*'
 
+#Config Google as Authorization Server
+google:
+  client:
+    clientId: 523055341030-1mf0heoekbtdosmim4afnpmptr868olq.apps.googleusercontent.com
+    clientSecret: vEwdiHHbVgFnc4FuapqOMlka
+    accessTokenUri: https://www.googleapis.com/oauth2/v4/token
+    userAuthorizationUri: https://accounts.google.com/o/oauth2/v2/auth
+    clientAuthenticationScheme: form
+    scope:
+      - openid
+      - email
+      - profile
+  resource:
+    userInfoUri: https://www.googleapis.com/oauth2/v3/userinfo
+    preferTokenInfo: true
+
 #Config Facebook as Authorization Server
 facebook:
   client:
