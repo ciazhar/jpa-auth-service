@@ -2,10 +2,10 @@ insert into role (id_role, nama_role, label_role)
 values ('1', 'ADMIN', 'Admin');
 
 insert into role (id_role, nama_role, label_role)
-values ('2', 'BASIC_USER', 'Basic User');
+values ('2', 'BASIC', 'Basic User');
 
 insert into role (id_role, nama_role, label_role)
-values ('3', 'CREDENTIAL_USER', 'Credential User');
+values ('3', 'CREDENTIAL', 'Credential User');
 
 
 insert into user (id_user, enabled, id_role, email, username, password)
@@ -25,7 +25,7 @@ insert into permission (id_permission, nama_permission, label_permission, id_rol
 values ('2', 'BASIC_USER', 'User biasa','2');
 
 insert into permission (id_permission, nama_permission, label_permission, id_role)
-values ('3', 'CREDENTIAL_USER', 'User gak biasa','2');
+values ('3', 'CREDENTIAL_USER', 'User gak biasa','3');
 
 insert into permission (id_permission, nama_permission, label_permission, id_role)
 values ('4', 'CREDENTIAL_USER', 'User gak biasa','3');
