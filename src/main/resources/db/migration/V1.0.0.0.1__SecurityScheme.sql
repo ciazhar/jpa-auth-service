@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS user(
   id_role VARCHAR(50) DEFAULT '2',
 
   username VARCHAR(30) UNIQUE,
-  email VARCHAR(30) UNIQUE NOT NULL,
+  email VARCHAR(50) UNIQUE NOT NULL,
   password VARCHAR(100) NOT NULL,
 
   first_name VARCHAR(20),
