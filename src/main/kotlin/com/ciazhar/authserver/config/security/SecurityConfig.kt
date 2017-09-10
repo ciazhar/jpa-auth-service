@@ -42,6 +42,23 @@ import java.util.ArrayList
 class SecurityConfig : WebSecurityConfigurerAdapter() {
 
     /**
+     * SQL Query untuk otorisasi
+     */
+    companion object {
+        private val SQL_LOGIN = "select username, password, enabled " + "from user where username = ?"
+        private val SQL_PERMISSION =
+                "select u.username as username, p.nama_permission as authority " +
+                        "from user u , permission p " +
+                        "where p.id_role=u.id_role and u.username = ? "
+        private val SQL_ROLE =
+                "select r.id_role, r.nama_role, p.nama_permission " +
+                        "from role r, permission p, user u " +
+                        "where u.username = ?  " +
+                        "and r.id_role = u.id_role " +
+                        "and r.id_role = p.id_role"
+    }
+
+    /**
      * Datasource untuk koneksi database
      */
     @Autowired
@@ -84,62 +101,76 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
     }
 
 
-//    @Autowired
-//    internal var oauth2ClientContext: OAuth2ClientContext? = null
-//
-//    /**
-//     * Resource untuk SSO ke github
-//     * @return
-//     */
-//    @Bean
-//    @ConfigurationProperties("github")
-//    fun github(): ClientResources {
-//        return ClientResources()
-//    }
-//
-//    /**
-//     * Resource untuk SSO ke facebook
-//     * @return
-//     */
-//    @Bean
-//    @ConfigurationProperties("facebook")
-//    fun facebook(): ClientResources {
-//        return ClientResources()
-//    }
-//
-//
-//    /**
-//     * Mendaftarkan Resouce untuk SSO
-//     * @return
-//     */
-//    private fun ssoFilter(): Filter {
-//        val filter = CompositeFilter()
-//        val filters = ArrayList<Filter>()
-//
-//        filters.add(ssoFilter(facebook(), "/login/facebook"))
-//        filters.add(ssoFilter(github(), "/login/github"))
-//        filter.setFilters(filters)
-//        return filter
-//    }
-//
-//    /**
-//     * Implementasi SSO
-//     * @param client
-//     * @param path
-//     * @return
-//     */
-//    private fun ssoFilter(client: ClientResources, path: String): Filter {
-//        val filter = OAuth2ClientAuthenticationProcessingFilter(path)
-//        val template = OAuth2RestTemplate(client.client, oauth2ClientContext)
-//        filter.setRestTemplate(template)
-//        val tokenServices = UserInfoTokenServices(
-//                client.resource.userInfoUri, client.client.clientId)
-//        tokenServices.setRestTemplate(template)
-//        filter.setTokenServices(tokenServices)
-//        return filter
-//    }
-//
-//
+    @Autowired
+    internal var oauth2ClientContext: OAuth2ClientContext? = null
+
+    /**
+     * Resource untuk SSO ke github
+     * @return
+     */
+    @Bean
+    @ConfigurationProperties("github")
+    fun github(): ClientResources {
+        return ClientResources()
+    }
+
+    /**
+     * Resource untuk SSO ke facebook
+     * @return
+     */
+    @Bean
+    @ConfigurationProperties("facebook")
+    fun facebook(): ClientResources {
+        return ClientResources()
+    }
+
+
+    /**
+     * Mendaftarkan Resouce untuk SSO
+     * @return
+     */
+    private fun ssoFilter(): Filter {
+        val filter = CompositeFilter()
+        val filters = ArrayList<Filter>()
+
+        filters.add(ssoFilter(facebook(), "/login/facebook"))
+        filters.add(ssoFilter(github(), "/login/github"))
+        filter.setFilters(filters)
+        return filter
+    }
+
+    /**
+     * Implementasi SSO
+     * @param client
+     * @param path
+     * @return
+     */
+    private fun ssoFilter(client: ClientResources, path: String): Filter {
+        val filter = OAuth2ClientAuthenticationProcessingFilter(path)
+        val template = OAuth2RestTemplate(client.client, oauth2ClientContext)
+        filter.setRestTemplate(template)
+        val tokenServices = UserInfoTokenServices(
+                client.resource.userInfoUri, client.client.clientId)
+        tokenServices.setRestTemplate(template)
+        filter.setTokenServices(tokenServices)
+        return filter
+    }
+
+    /**
+     * Bean untuk filter
+     * @param filter
+     * @return
+     */
+    @Bean
+    fun oauth2ClientFilterRegistration(
+            filter: OAuth2ClientContextFilter): FilterRegistrationBean {
+        val registration = FilterRegistrationBean()
+        registration.filter = filter
+        registration.order = -100
+        return registration
+    }
+
+
     /**
      * Bean untuk konfigurasi http
      * @param http
@@ -156,57 +187,21 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
                 .formLogin().loginPage("/login").defaultSuccessUrl("/home").permitAll()
                 .and()
                 .logout().logoutSuccessUrl("/").permitAll()
+                .and()
+                .addFilterBefore(ssoFilter(), BasicAuthenticationFilter::class.java)
 
-//                .and()
-//                .addFilterBefore(ssoFilter(), BasicAuthenticationFilter::class.java)
-
-    }
-
-//    /**
-//     * Bean untuk filter
-//     * @param filter
-//     * @return
-//     */
-//    @Bean
-//    fun oauth2ClientFilterRegistration(
-//            filter: OAuth2ClientContextFilter): FilterRegistrationBean {
-//        val registration = FilterRegistrationBean()
-//        registration.filter = filter
-//        registration.order = -100
-//        return registration
-//    }
-//
-//    /**
-//     * Class untuk mendefinisikan Resource untuk SSO
-//     */
-//    internal inner class ClientResources {
-//
-//        @NestedConfigurationProperty
-//        val client = AuthorizationCodeResourceDetails()
-//
-//        @NestedConfigurationProperty
-//        val resource = ResourceServerProperties()
-//    }
-
-    companion object {
-
-        /**
-         * SQL Query untuk otorisasi
-         */
-        private val SQL_LOGIN = "select username, password, enabled " + "from user where username = ?"
-
-        private val SQL_PERMISSION =
-                "select u.username as username, p.nama_permission as authority " +
-                        "from user u , permission p " +
-                        "where p.id_role=u.id_role and u.username = ? "
-
-        private val SQL_ROLE =
-                "select r.id_role, r.nama_role, p.nama_permission " +
-                        "from role r, permission p, user u " +
-                        "where u.username = ?  " +
-                        "and r.id_role = u.id_role " +
-                        "and r.id_role = p.id_role"
     }
 
 }
 
+/**
+ * Class untuk mendefinisikan Resource untuk SSO
+ */
+class ClientResources {
+
+    @NestedConfigurationProperty
+    val client = AuthorizationCodeResourceDetails()
+
+    @NestedConfigurationProperty
+    val resource = ResourceServerProperties()
+}
