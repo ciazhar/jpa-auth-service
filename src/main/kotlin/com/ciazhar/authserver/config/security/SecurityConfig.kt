@@ -105,6 +105,16 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
     internal var oauth2ClientContext: OAuth2ClientContext? = null
 
     /**
+     * Resource untuk SSO ke google
+     * @return
+     */
+    @Bean
+    @ConfigurationProperties("google")
+    fun google(): ClientResources {
+        return ClientResources()
+    }
+
+    /**
      * Resource untuk SSO ke github
      * @return
      */
@@ -135,6 +145,7 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
 
         filters.add(ssoFilter(facebook(), "/login/facebook"))
         filters.add(ssoFilter(github(), "/login/github"))
+        filters.add(ssoFilter(google(), "/login/google"))
         filter.setFilters(filters)
         return filter
     }
