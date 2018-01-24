@@ -1,96 +1,129 @@
-#Config Spring Security Oauth2 as Authorization Server
-security:
-  oauth2:
-    client:
-      client-id: acme
-      client-secret: acmesecret
-      scope: read,write
-      auto-approve-scopes: '.*'
+# #Config Spring Security Oauth2 as Authorization Server
+# security:
+#   oauth2:
+#     client:
+#       client-id: acme
+#       client-secret: acmesecret
+#       scope: read,write
+#       auto-approve-scopes: '.*'
 
-#Config Google as Authorization Server
-google:
-  client:
-    clientId: 523055341030-1mf0heoekbtdosmim4afnpmptr868olq.apps.googleusercontent.com
-    clientSecret: vEwdiHHbVgFnc4FuapqOMlka
-    accessTokenUri: https://www.googleapis.com/oauth2/v4/token
-    userAuthorizationUri: https://accounts.google.com/o/oauth2/v2/auth
-    clientAuthenticationScheme: form
-    scope:
-      - openid
-      - email
-      - profile
-  resource:
-    userInfoUri: https://www.googleapis.com/oauth2/v3/userinfo
-    preferTokenInfo: true
+# #Config Google as Authorization Server
+# google:
+#   client:
+#     clientId: 523055341030-1mf0heoekbtdosmim4afnpmptr868olq.apps.googleusercontent.com
+#     clientSecret: vEwdiHHbVgFnc4FuapqOMlka
+#     accessTokenUri: https://www.googleapis.com/oauth2/v4/token
+#     userAuthorizationUri: https://accounts.google.com/o/oauth2/v2/auth
+#     clientAuthenticationScheme: form
+#     scope:
+#       - openid
+#       - email
+#       - profile
+#   resource:
+#     userInfoUri: https://www.googleapis.com/oauth2/v3/userinfo
+#     preferTokenInfo: true
 
-#Config Facebook as Authorization Server
-facebook:
-  client:
-    clientId: 233668646673605
-    clientSecret: 33b17e044ee6a4fa383f46ec6e28ea1d
-    accessTokenUri: https://graph.facebook.com/oauth/access_token
-    userAuthorizationUri: https://www.facebook.com/dialog/oauth
-    tokenName: oauth_token
-    authenticationScheme: query
-    clientAuthenticationScheme: form
-  resource:
-    userInfoUri: https://graph.facebook.com/me
+# #Config Facebook as Authorization Server
+# facebook:
+#   client:
+#     clientId: 233668646673605
+#     clientSecret: 33b17e044ee6a4fa383f46ec6e28ea1d
+#     accessTokenUri: https://graph.facebook.com/oauth/access_token
+#     userAuthorizationUri: https://www.facebook.com/dialog/oauth
+#     tokenName: oauth_token
+#     authenticationScheme: query
+#     clientAuthenticationScheme: form
+#   resource:
+#     userInfoUri: https://graph.facebook.com/me
 
-#Config Github as Authorization Server
-github:
-  client:
-    clientId: bd1c0a783ccdd1c9b9e4
-    clientSecret: 1a9030fbca47a5b2c28e92f19050bb77824b5ad1
-    accessTokenUri: https://github.com/login/oauth/access_token
-    userAuthorizationUri: https://github.com/login/oauth/authorize
-    clientAuthenticationScheme: form
-  resource:
-    userInfoUri: https://api.github.com/user
+# #Config Github as Authorization Server
+# github:
+#   client:
+#     clientId: bd1c0a783ccdd1c9b9e4
+#     clientSecret: 1a9030fbca47a5b2c28e92f19050bb77824b5ad1
+#     accessTokenUri: https://github.com/login/oauth/access_token
+#     userAuthorizationUri: https://github.com/login/oauth/authorize
+#     clientAuthenticationScheme: form
+#   resource:
+#     userInfoUri: https://api.github.com/user
 
 
-#Spring Configuration
+# #Spring Configuration
+# spring:
+
+#   jackson:
+#     serialization:
+#       INDENT_OUTPUT: true
+
+#   datasource:
+#     url: jdbc:mysql://localhost:3306/auth
+#     username: user
+#     password: pass
+
+
+#   jpa:
+#     hibernate:
+#       ddl-auto: none
+#     show-sql: true
+
+#   # Mail Configuration
+#   mail:
+#     host: smtp.gmail.com
+#     port: 587
+#     username: auth.zharver@gmail.com
+#     password: penguingame
+#     properties:
+#       mail:
+#         smtp:
+#           starttls:
+#             enabled: true
+#             required: true
+#           auth: true
+#           connectiontimeout: 5000
+#           timemout: 5000
+#           writetimeout: 5000
+
+# #Server Configuration
+# server:
+#   port: 8080
+#   session:
+#     cookie:
+#       name: AUTHSERVER
+
+
+# upload:
+#   data:
+#     dir: /home/ciazhar
+
+# logging:
+#   level:
+#     root: INFO
+#     org.springframework.web: INFO
+#     org.springframework.security: INFO
+#    org.springframework.boot.autoconfigure: DEBUG
+
 spring:
-
-  jackson:
-    serialization:
-      INDENT_OUTPUT: true
-
-  datasource:
-    url: jdbc:mysql://localhost:3306/auth
-    username: user
-    password: pass
-
-
-  jpa:
-    hibernate:
-      ddl-auto: none
-    show-sql: true
-
-  # Mail Configuration
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: auth.zharver@gmail.com
-    password: penguingame
-    properties:
-      mail:
-        smtp:
-          starttls:
-            enabled: true
-            required: true
-          auth: true
-          connectiontimeout: 5000
-          timemout: 5000
-          writetimeout: 5000
-
-#Server Configuration
-server:
-  port: 8080
-  session:
-    cookie:
-      name: AUTHSERVER
-
-
-upload:
-  data:
-    dir: /home/ciazhar
+  thymeleaf:
+    cache: false
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 523055341030-1mf0heoekbtdosmim4afnpmptr868olq.apps.googleusercontent.com
+            client-secret: vEwdiHHbVgFnc4FuapqOMlka
+        #   github:
+        #     client-id: your-app-client-id
+        #     client-secret: your-app-client-secret
+        #   facebook:
+        #     client-id: your-app-client-id
+        #     client-secret: your-app-client-secret
+        #   okta:
+        #     client-id: your-app-client-id
+        #     client-secret: your-app-client-secret
+        # provider:
+        #   okta:
+        #     authorization-uri: https://your-subdomain.oktapreview.com/oauth2/v1/authorize
+        #     token-uri: https://your-subdomain.oktapreview.com/oauth2/v1/token
+        #     user-info-uri: https://your-subdomain.oktapreview.com/oauth2/v1/userinfo
+        #     jwk-set-uri: https://your-subdomain.oktapreview.com/oauth2/v1/keys
